@@ -1,0 +1,26 @@
+<main class="main-container">
+    <div *ngIf="loader" class="loader-class">
+        <div class="reverse-spinner"></div>
+    </div>
+    <div class="card-group mt-5">
+        <div class="card-deck card-columns col-auto mb-5" style="width: 25em" *ngFor="let airport of allAirports">
+            <div class="container-fluid">
+                <div class="card border-white">
+                    <div class="card special-card" (click)="goToAirport(airport.id)">
+                        <img class="card-img-top" src="../../../../assets/images/airports/img-{{airport.id}}.png"
+                            width="50%" alt="Card image cap">
+                        <div class="card-header bg-white text-header">
+                            <h5 class="card-title text-light text-center book-title text-uppercase">{{airport.name}}
+                            </h5>
+                        </div>
+                        <div class="card-body  bg-white">
+                            <p class="card-text">Lokacija: <span class="text-secondary"> {{airport.location}}</span></p>
+                            <p class="card-text">ICAO kod: <span class="text-secondary">{{airport.icaoCode}}</span> </p>
+                            <p class="card-text">Ocena: <span class="text-secondary"> {{airport.rating}}</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

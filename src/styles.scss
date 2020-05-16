@@ -1,1 +1,95 @@
-/* You can add global styles to this file, and also import other style files */
+@import './colors.scss';
+
+* {
+    box-sizing: border-box;
+}
+
+body,html {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+
+.main-container{
+    min-height: 100vh;
+}
+
+.navbar{
+    background-color: $navigation;
+    color: $white;
+}
+
+.page-footer {
+    background-color: $footer !important;
+    color: $white;
+    a{
+        color: $white;
+    }
+}
+
+.reverse-spinner {
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    top: 50%;
+    left: 50%;
+    border: 4px solid transparent;
+    border-top-color: $common-color;
+    border-left-color: $common-color;
+    border-radius: 50%;
+    -webkit-animation: spin 1.5s linear infinite;
+    animation: spin 1.5s linear infinite;
+  }
+
+.navbar-brand{
+    width: 65px !important;
+}
+
+.card-title{
+    font-size: 1em !important;
+}
+
+.loader-class{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: #fdfdfd;
+    z-index: 2;
+}
+
+@-webkit-keyframes rotate {
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes rotate {
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+
+
+  
+  @-webkit-keyframes spin {
+    from {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes spin {
+    from {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }

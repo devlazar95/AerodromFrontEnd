@@ -1,0 +1,26 @@
+<main-navigation></main-navigation>
+<main class="main-container">
+    <div *ngIf="loader" class="loader-class">
+        <div class="reverse-spinner"></div>
+      </div>
+    <div class="d-flex flex-row justify-content-between align-items-center">
+        <div class="d-flex flex-column justify-content-center align-items-center pl-5 pr-5">
+            <div class="col-12">
+                <img  src="../../../../../assets/images/airports/img-{{id}}.png" width="100%" alt="Card image cap">
+            </div>
+            <div class="d-flex flex-column col-12 w-100">
+                <div class="card">
+                    <div class="card-header bg-white text-header">
+                        <h5 class="card-title text-light text-center book-title text-uppercase" >{{specificAirport.name}}</h5>
+                      </div>
+                    <div class="card-body  bg-white">
+                        <p class="card-text">Lokacija: <span class="text-secondary"> {{specificAirport.location}}</span></p>
+                        <p class="card-text">ICAO kod: <span class="text-secondary">{{specificAirport.icaoCode}}</span> </p>
+                        <p class="card-text">Ocena: <span class="text-secondary"> {{specificAirport.rating}}</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<main-footer></main-footer>

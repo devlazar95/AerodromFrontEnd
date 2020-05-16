@@ -1,0 +1,22 @@
+@import '../../../../../colors.scss';
+
+.card-body{
+    border-left: 1px solid $common-color;
+    border-bottom: 1px solid $common-color;
+    border-right: 1px solid $common-color;
+    // box-shadow: -1px 11px 20px #76767659;
+}
+
+.card-header{
+    min-height: 90px !important;
+    display: flex;
+    justify-content: center;
+    border: 1px solid $common-color;
+    background-color: $common-color !important;
+    align-items: center;
+    h5{
+        text-align: center;
+
+    }
+    // box-shadow: 0px 9px 20px #76767659;
+}
