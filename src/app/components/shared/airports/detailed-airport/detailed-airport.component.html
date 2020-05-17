@@ -1,22 +1,140 @@
 <main-navigation></main-navigation>
-<main class="main-container">
+<main class="main-container mb-5">
     <div *ngIf="loader" class="loader-class">
         <div class="reverse-spinner"></div>
+    </div>
+    
+    <div class="col-10 mt-5 mx-auto">
+        <h3 class="text-secondary text-size pointer text-center mb-2">SVI LETOVI NA AERODROMU <span
+                class="text-uppercase">"{{specificAirport.name}}"</span></h3>
+        <div class="table-responsive" *ngIf="flights.length > 0">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Record#</th>
+                        <th scope="col">Flight Number</th>
+                        <th scope="col">Departure</th>
+                        <th scope="col">Arrival</th>
+                        <th scope="col">Destination</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let flight of flights; index as i">
+                        <th scope="row">{{ i + 1 }}</th>
+                        <td>
+                            {{ flight.flightNumber }}
+                        </td>
+                        <td>
+                            <i class="fas fa-plane-departure mr-2"></i>
+                            {{ flight.departureDateTime | date }}
+                        </td>
+                        <td>
+                            <i class="fas fa-plane-arrival mr-2"></i>
+                            {{ flight.arrivalDateTime | date }}
+                        </td>
+                        <td>{{ flight.toWhere }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p *ngIf="flights.length == 0" class="text-center">NEMA REZULTATA</p>
+    </div>
+    <div class="alert alert-success col-10 mx-auto text-center text-uppercase custom-alert-bottom" role="alert" *ngIf="successAddingFlight">
+        Uspešno ste kreirali let
       </div>
-    <div class="d-flex flex-row justify-content-between align-items-center">
-        <div class="d-flex flex-column justify-content-center align-items-center pl-5 pr-5">
-            <div class="col-12">
-                <img  src="../../../../../assets/images/airports/img-{{id}}.png" width="100%" alt="Card image cap">
+    <div class="alert alert-danger col-10 mx-auto text-center text-uppercase" role="alert" *ngIf="errorAddingFlight">
+        Let nije kreiran
+      </div>
+    <div class="alert alert-danger col-10 mx-auto text-center text-uppercase" role="alert" *ngIf="formInvalid">
+        Molimo Vas popunite sva obavezna polja
+      </div>
+    <div class="d-flex flex-row align-items-center col-10  mx-auto ">
+        <!-- <div class="d-flex flex-column justify-content-center align-items-center col-5 mb-5em">
+            <div class="col-10">
+                <img src="../../../../../assets/images/airports/img-{{id}}.png" width="100%" alt="Card image cap">
             </div>
-            <div class="d-flex flex-column col-12 w-100">
+            <div class="d-flex flex-column col-10 w-100">
                 <div class="card">
                     <div class="card-header bg-white text-header">
-                        <h5 class="card-title text-light text-center book-title text-uppercase" >{{specificAirport.name}}</h5>
-                      </div>
+                        <h4 class="text-light text-center book-title text-uppercase">{{specificAirport.name}}
+                        </h4>
+                    </div>
                     <div class="card-body  bg-white">
-                        <p class="card-text">Lokacija: <span class="text-secondary"> {{specificAirport.location}}</span></p>
-                        <p class="card-text">ICAO kod: <span class="text-secondary">{{specificAirport.icaoCode}}</span> </p>
+                        <p class="card-text">Lokacija: <span class="text-secondary"> {{specificAirport.location}}</span>
+                        </p>
+                        <p class="card-text">ICAO kod: <span class="text-secondary">{{specificAirport.icaoCode}}</span>
+                        </p>
                         <p class="card-text">Ocena: <span class="text-secondary"> {{specificAirport.rating}}</span></p>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="d-flex flex-column align-items-center mt-3 col-12 p-0">
+            <div class="col-12 p-0">
+                <div class="card">
+                    <div class="card-header bg-white text-header">
+                        <h4 class="text-light text-center text-uppercase">Dodajte novi let
+                        </h4>
+                    </div>
+                    <div class="card-body  bg-white">
+                        <form [formGroup]="newFlightRecord" class="needs-validation" autocomplete="off">
+                            <div class="form-group">
+                                <label for="flightNumberFormControl">Broj leta<span class="asterix ml-2">*</span></label>
+                                <input type="text" class="form-control form-control-lg" [ngClass]="{'border-danger':formInvalid}" id="flightNumberFormControl"
+                                    formControlName="flightNumberFormControl" aria-describedby="fnumberlHelp"
+                                    placeholder="Broj leta" required>
+                            </div>
+                            <div class="d-flex flex-row flex-sm-col ">
+                                <div
+                                    class="form-group col-6 p-0 mr-3 d-flex flex-row justify-content-center align-items-center">
+                                    <div class="col-9 pl-0">
+                                        <label for="departureDateFormControl">Datum i vreme poletanja<span class="asterix ml-2">*</span></label>
+                                        <input class="form-control form-control-lg" [ngClass]="{'border-danger':formInvalid}" placeholder="yyyy-mm-dd"
+                                            (click)="d.toggle()" formControlName="departureDateFormControl" name="dp"
+                                            [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" required>
+                                    </div>
+                                    <div class="col-3 align-self-end">
+                                        <ngb-timepicker [ngClass]="{'border-danger':true}" formControlName="departureTimeFormControl" [(ngModel)]="time"
+                                            [spinners]="false" required></ngb-timepicker>
+                                    </div>
+                                </div>
+                                <div
+                                    class="form-group col-6 p-0 d-flex flex-row justify-content-center align-items-center">
+                                    <div class="col-9 pl-0">
+                                        <label for="arrivalDateFormControl">Datum i vreme sletanja<span class="asterix ml-2">*</span></label>
+                                        <input class="form-control form-control-lg" [ngClass]="{'border-danger':formInvalid}" placeholder="yyyy-mm-dd"
+                                            (click)="f.toggle()" formControlName="arrivalDateFormControl" name="dp"
+                                            [(ngModel)]="model2" ngbDatepicker #f="ngbDatepicker" required>
+                                    </div>
+                                    <div class="col-3 align-self-end">
+                                        <ngb-timepicker formControlName="arrivalTimeFormControl" [ngClass]="{'border-danger':true}" [(ngModel)]="time2"
+                                            [spinners]="false" required></ngb-timepicker>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row flex-sm-col">
+                                <div class="form-group col-6 p-0">
+                                    <label for="toWhereFormControl">Destinacija<span class="asterix ml-2">*</span></label>
+                                    <input type="text" class="form-control form-control-lg" [ngClass]="{'border-danger':formInvalid}" id="toWhereFormControl"
+                                        formControlName="toWhereFormControl" aria-describedby="fnumberlHelp"
+                                        placeholder="Destinacija" required>
+                                </div>
+                                <div class="form-group col-6 ml-3">
+                                    <label for="aircraftFormControl">Avion<span class="asterix ml-2">*</span></label>
+                                    <select class="custom-select form-control form-control-lg"
+                                        formControlName="aircraftFormControl" [ngClass]="{'border-danger':formInvalid}">
+                                        <option value="0" selected readonly>Izaberite avion</option>
+                                        <option value="{{airplane.id}}" *ngFor="let airplane of allAircrafts">
+                                            {{airplane.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="pt-4">
+                                <button type="submit" class="btn btn-primary btn-lg mr-2"
+                                    (click)="submitData(newFlightRecord)">Potvrdite</button>
+                                <button type="button" class="btn btn-outline-primary btn-lg" (click)="goBack()">Otkažite</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

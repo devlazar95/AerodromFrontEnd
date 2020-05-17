@@ -10,6 +10,8 @@ import { HttpClient, HttpClientModule} from '@angular/common/http'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ApiService } from './services/api.service';
 import { AirportsService } from './services/airports.service';
+import { FlightService } from './services/flight.service';
+import { AircraftService } from './services/aircraft.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +25,7 @@ import { AirportsService } from './services/airports.service';
     HttpClientModule,
     SharedModule
   ],
-  providers: [ApiService, AirportsService],
+  providers: [ApiService, AirportsService, FlightService, AircraftService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

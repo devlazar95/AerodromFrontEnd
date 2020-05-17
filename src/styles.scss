@@ -1,5 +1,4 @@
 @import './colors.scss';
-
 * {
     box-sizing: border-box;
 }
@@ -25,6 +24,56 @@ body,html {
     a{
         color: $white;
     }
+}
+.btn-primary{
+  background-color: $common-color;
+  border-color: $common-color-hover;
+}
+
+.btn-primary.focus, .btn-primary:focus{
+  background-color: $common-color-hover;
+  border-color: $common-color-hover;
+}
+
+.btn-outline-primary{
+  border-color: $common-secondary;
+  color: $common-secondary;
+  &:hover{
+    background-color: $common-secondary;
+    color: $white;
+    border-color: $common-secondary;
+  }
+}
+.table-striped tbody tr:nth-of-type(odd){
+  background-color: $common-secondary-light;
+  color: $white;
+  .fas{
+    color: $white !important;
+  }
+}
+
+.custom-alert-bottom{
+  max-width: 250px;
+    position: absolute;
+    z-index: 100;
+    right: 10px;
+    bottom: 10px;
+}
+
+.custom-select{
+  height: calc(1.5em + 1.3rem + 2px);
+    padding: 0.5rem 1rem;
+    line-height: 1.5;
+}
+
+.asterix{
+  color: $red;
+}
+
+.ngb-tp-input{
+  height: calc(1.5em + 1.3rem + 2px);
+    padding: .5rem 1rem;
+    line-height: 1.5;
 }
 
 .reverse-spinner {
@@ -55,6 +104,10 @@ body,html {
     position: absolute;
     background: #fdfdfd;
     z-index: 2;
+}
+
+.mb-5em{
+  margin-bottom: 5em;
 }
 
 @-webkit-keyframes rotate {

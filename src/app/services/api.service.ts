@@ -12,6 +12,10 @@ export class ApiService {
     return this._httpClient.get(this.baseUrl+endPointURL);
   }
 
+  post(endPointURL:string, dataObject: any): Observable<any>{
+    return this._httpClient.post(this.baseUrl+endPointURL,dataObject);
+  }
+
   getById(endPointURL:string, id:number): Observable<any>{
     return this._httpClient.get(this.baseUrl+endPointURL+"/"+id+"/");
   }

@@ -5,8 +5,8 @@ import { FooterComponent } from './footer/footer.component';
 import { ListAirportsComponent } from './airports/list-airports/list-airports.component';
 import { AirportComponent } from './airports/airport/airport.component';
 import { DetailedAirportComponent } from './airports/detailed-airport/detailed-airport.component';
-
-
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgbDate, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -14,10 +14,13 @@ import { DetailedAirportComponent } from './airports/detailed-airport/detailed-a
     FooterComponent,
     ListAirportsComponent,
     AirportComponent,
-    DetailedAirportComponent
+    DetailedAirportComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgbModule
   ],
   exports: [
     NavigationComponent,

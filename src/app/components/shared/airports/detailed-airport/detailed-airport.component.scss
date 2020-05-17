@@ -20,3 +20,18 @@
     }
     // box-shadow: 0px 9px 20px #76767659;
 }
+
+.pos-ab{
+    position: absolute !important;
+    top: 3em !important;
+    right: 4em !important;
+}
+.table{
+    .fas{
+        color: $common-secondary-light;
+    }
+}
+
+.min-height{
+    min-height: 51em;
+}
