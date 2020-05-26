@@ -1,0 +1,49 @@
+<main class="main-container">
+    <div *ngIf="loader" class="loader-class">
+        <div class="reverse-spinner"></div>
+    </div>
+    <div class="container-fluid mt-5">
+        <div class="table-responsive" *ngIf="allFlights.length > 0">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">R. Broj#</th>
+                        <th scope="col">Broj Leta</th>
+                        <th scope="col">Poletanje</th>
+                        <th scope="col">Sletanje</th>
+                        <th scope="col">Destinacija</th>
+                        <th scope="col">Aerodrom</th>
+                        <th scope="col">ICAO</th>
+                        <th scope="col">Letelica</th>
+                        <th scope="col">Opcije</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let flight of allFlights; index as i">
+                        <th scope="row">{{ i + 1 }}</th>
+                        <td>
+                            {{ flight.flightNumber }}
+                        </td>
+                        <td>
+                            <i class="fas fa-plane-departure mr-2"></i>
+                            {{ flight.departureDateTime | date }}
+                        </td>
+                        <td>
+                            <i class="fas fa-plane-arrival mr-2"></i>
+                            {{ flight.arrivalDateTime | date }}
+                        </td>
+                        <td>{{ flight.toWhere }}</td>
+                        <td class="fake-link" (click)="goToSpecificAirport(flight['airport'].id)">
+                            {{ flight['airport'].name }}</td>
+                        <td>{{ flight['airport'].icaoCode }}</td>
+                        <td>{{ flight['aircraft'].name }}</td>
+                        <td>
+                            <i class="far fa-edit" data-toggle="tooltip" data-placement="top" title="Edit"></i>
+                            <i class="far fa-trash-alt ml-3" data-toggle="tooltip" data-placement="top" title="Delete"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>

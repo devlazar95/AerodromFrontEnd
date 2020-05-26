@@ -1,21 +1,37 @@
-<main-navigation></main-navigation>
+<div class="alert alert-success col-10 mx-auto text-center text-uppercase custom-alert-bottom" role="alert"
+    *ngIf="successAddingFlight">
+    Uspešno ste kreirali let
+</div>
+<div class="alert alert-success col-10 mx-auto text-center text-uppercase custom-alert-bottom" role="alert"
+    *ngIf="successDeletingFlight">
+    Uspešno ste izbrisali let {{flightToDelete}} za {{specificAirport.name}}
+</div>
+<div class="alert alert-danger col-10 mx-auto text-center text-uppercase custom-alert-bottom" role="alert"
+    *ngIf="errorAddingFlight">
+    Let nije kreiran
+</div>
+<div class="alert alert-danger col-10 mx-auto text-center text-uppercase custom-alert-bottom" role="alert"
+    *ngIf="formInvalid">
+    Molimo Vas popunite sva obavezna polja
+</div>
 <main class="main-container mb-5">
     <div *ngIf="loader" class="loader-class">
         <div class="reverse-spinner"></div>
     </div>
-    
-    <div class="col-10 mt-5 mx-auto">
-        <h3 class="text-secondary text-size pointer text-center mb-2">SVI LETOVI NA AERODROMU <span
-                class="text-uppercase">"{{specificAirport.name}}"</span></h3>
+    <h4 class="text-secondary text-size pointer text-center mt-5 mb-3 col-10 mx-auto">SVI LETOVI NA AERODROMU <span
+            class="text-uppercase">"{{specificAirport.name}}"</span></h4>
+    <div class="col-8 mt-2 mx-auto">
+
         <div class="table-responsive" *ngIf="flights.length > 0">
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">Record#</th>
-                        <th scope="col">Flight Number</th>
-                        <th scope="col">Departure</th>
-                        <th scope="col">Arrival</th>
-                        <th scope="col">Destination</th>
+                        <th scope="col">Redni broj#</th>
+                        <th scope="col">Broj Leta</th>
+                        <th scope="col">Vreme Poletanja</th>
+                        <th scope="col">Vreme Sletanja</th>
+                        <th scope="col">Destinacija</th>
+                        <th scope="col">Opcije</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,22 +49,20 @@
                             {{ flight.arrivalDateTime | date }}
                         </td>
                         <td>{{ flight.toWhere }}</td>
+                        <td>
+                            <i class="far fa-edit hover-edit" data-toggle="tooltip" data-placement="top"
+                                title="Edit" (click)="editSpecificFlight(flight)"></i>
+                            <i class="far fa-trash-alt ml-3 hover-delete" data-toggle="tooltip" data-placement="top"
+                                title="Delete" (click)="deleteFlightFirstStep(flight.flightNumber, content)"></i>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <p *ngIf="flights.length == 0" class="text-center">NEMA REZULTATA</p>
     </div>
-    <div class="alert alert-success col-10 mx-auto text-center text-uppercase custom-alert-bottom" role="alert" *ngIf="successAddingFlight">
-        Uspešno ste kreirali let
-      </div>
-    <div class="alert alert-danger col-10 mx-auto text-center text-uppercase" role="alert" *ngIf="errorAddingFlight">
-        Let nije kreiran
-      </div>
-    <div class="alert alert-danger col-10 mx-auto text-center text-uppercase" role="alert" *ngIf="formInvalid">
-        Molimo Vas popunite sva obavezna polja
-      </div>
-    <div class="d-flex flex-row align-items-center col-10  mx-auto ">
+
+    <div class="d-flex flex-row align-items-center col-8  mx-auto ">
         <!-- <div class="d-flex flex-column justify-content-center align-items-center col-5 mb-5em">
             <div class="col-10">
                 <img src="../../../../../assets/images/airports/img-{{id}}.png" width="100%" alt="Card image cap">
@@ -79,43 +93,55 @@
                     <div class="card-body  bg-white">
                         <form [formGroup]="newFlightRecord" class="needs-validation" autocomplete="off">
                             <div class="form-group">
-                                <label for="flightNumberFormControl">Broj leta<span class="asterix ml-2">*</span></label>
-                                <input type="text" class="form-control form-control-lg" [ngClass]="{'border-danger':formInvalid}" id="flightNumberFormControl"
-                                    formControlName="flightNumberFormControl" aria-describedby="fnumberlHelp"
-                                    placeholder="Broj leta" required>
+                                <label for="flightNumberFormControl">Broj leta<span
+                                        class="asterix ml-2">*</span></label>
+                                <input type="text" class="form-control form-control-lg"
+                                    [ngClass]="{'border-danger': formInvalid || uniqueFlightNumber}"
+                                    id="flightNumberFormControl" formControlName="flightNumberFormControl"
+                                    aria-describedby="fnumberlHelp" placeholder="Broj leta" required [readonly]="readbool">
+                                <small id="unique" *ngIf="uniqueFlightNumber" class="form-text text-danger">Unesite
+                                    jedinstveni nepostojeći broj leta</small>
                             </div>
-                            <div class="d-flex flex-row flex-sm-col ">
+                            <div class="d-flex flex-lg-row fx-md-column fx-sm-column flex-sm-column">
                                 <div
-                                    class="form-group col-6 p-0 mr-3 d-flex flex-row justify-content-center align-items-center">
+                                    class="form-group col-lg-6 col-md-12 col-sm-12 p-0 mr-3 d-flex flex-row  justify-content-center align-items-center">
                                     <div class="col-9 pl-0">
-                                        <label for="departureDateFormControl">Datum i vreme poletanja<span class="asterix ml-2">*</span></label>
-                                        <input class="form-control form-control-lg" [ngClass]="{'border-danger':formInvalid}" placeholder="yyyy-mm-dd"
+                                        <label for="departureDateFormControl">Datum i vreme poletanja<span
+                                                class="asterix ml-2">*</span></label>
+                                        <input class="form-control form-control-lg"
+                                            [ngClass]="{'border-danger':formInvalid}" placeholder="yyyy-mm-dd"
                                             (click)="d.toggle()" formControlName="departureDateFormControl" name="dp"
-                                            [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" required>
+                                            [(ngModel)]="ngbDate" ngbDatepicker #d="ngbDatepicker" required>
                                     </div>
                                     <div class="col-3 align-self-end">
-                                        <ngb-timepicker [ngClass]="{'border-danger':true}" formControlName="departureTimeFormControl" [(ngModel)]="time"
+                                        <ngb-timepicker [ngClass]="{'border-danger':true}"
+                                            formControlName="departureTimeFormControl" [(ngModel)]="time"
                                             [spinners]="false" required></ngb-timepicker>
                                     </div>
                                 </div>
                                 <div
-                                    class="form-group col-6 p-0 d-flex flex-row justify-content-center align-items-center">
+                                    class="form-group p-0 col-lg-6 col-md-12 col-sm-12 d-flex flex-row justify-content-center align-items-center">
                                     <div class="col-9 pl-0">
-                                        <label for="arrivalDateFormControl">Datum i vreme sletanja<span class="asterix ml-2">*</span></label>
-                                        <input class="form-control form-control-lg" [ngClass]="{'border-danger':formInvalid}" placeholder="yyyy-mm-dd"
+                                        <label for="arrivalDateFormControl">Datum i vreme sletanja<span
+                                                class="asterix ml-2">*</span></label>
+                                        <input class="form-control form-control-lg"
+                                            [ngClass]="{'border-danger':formInvalid}" placeholder="yyyy-mm-dd"
                                             (click)="f.toggle()" formControlName="arrivalDateFormControl" name="dp"
                                             [(ngModel)]="model2" ngbDatepicker #f="ngbDatepicker" required>
                                     </div>
                                     <div class="col-3 align-self-end">
-                                        <ngb-timepicker formControlName="arrivalTimeFormControl" [ngClass]="{'border-danger':true}" [(ngModel)]="time2"
-                                            [spinners]="false" required></ngb-timepicker>
+                                        <ngb-timepicker formControlName="arrivalTimeFormControl"
+                                            [ngClass]="{'border-danger':true}" [(ngModel)]="time2" [spinners]="false"
+                                            required></ngb-timepicker>
                                     </div>
                                 </div>
                             </div>
                             <div class="d-flex flex-row flex-sm-col">
                                 <div class="form-group col-6 p-0">
-                                    <label for="toWhereFormControl">Destinacija<span class="asterix ml-2">*</span></label>
-                                    <input type="text" class="form-control form-control-lg" [ngClass]="{'border-danger':formInvalid}" id="toWhereFormControl"
+                                    <label for="toWhereFormControl">Destinacija<span
+                                            class="asterix ml-2">*</span></label>
+                                    <input type="text" class="form-control form-control-lg"
+                                        [ngClass]="{'border-danger':formInvalid}" id="toWhereFormControl"
                                         formControlName="toWhereFormControl" aria-describedby="fnumberlHelp"
                                         placeholder="Destinacija" required>
                                 </div>
@@ -132,7 +158,8 @@
                             <div class="pt-4">
                                 <button type="submit" class="btn btn-primary btn-lg mr-2"
                                     (click)="submitData(newFlightRecord)">Potvrdite</button>
-                                <button type="button" class="btn btn-outline-primary btn-lg" (click)="goBack()">Otkažite</button>
+                                <button type="button" class="btn btn-outline-primary btn-lg"
+                                    (click)="goBack()">Otkažite</button>
                             </div>
                         </form>
                     </div>
@@ -140,5 +167,19 @@
             </div>
         </div>
     </div>
+    <ng-template #content let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Brzi Prikaz</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body pt-5 pb-5">
+            Da li ste sigurni da želite da izbrišete LET <u>{{flightToDelete}}</u> za {{specificAirport.name}}
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-danger" data-dismiss="modal" focus="true" (click)="dismissDeletion()">ODUSTANI</button>
+            <button type="button" class="btn btn-primary" (click)="deleteFlight()">OBRIŠI</button>
+        </div>
+    </ng-template>
 </main>
-<main-footer></main-footer>

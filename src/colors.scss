@@ -1,5 +1,7 @@
 $navigation: #00afdd;
 $footer: #00afdd;
+
+/* MAIN COMMON COLOR VARIATIONS*/
 $common-color-nav: rgb(61, 144, 227);
 $common-color-nav-action: rgb(23, 100, 177);
 $common-color: rgb(0, 175, 221);
@@ -7,6 +9,21 @@ $common-color-hover: rgb(39, 165, 196);
 $common-color-light: rgba(0, 177, 221, 0.541);
 $common-secondary: rgb(221, 66, 0);
 $common-secondary-light: rgba(221, 66, 0, 0.473);
+
+/*SECONDARY-COLOR-VARIATIONS*/
+$secondary-common-color-green: rgb(175, 244, 135);
+$secondary-common-color-green-darker: rgb(131, 214, 83);
+$secondary-common-color-pastel-green: rgb(99, 233, 168);
+$secondary-common-color-pastel-green-darker: rgb(66, 209, 140);
+$secondary-common-color-yellow: rgb(249, 248, 113);
+$secondary-common-color-yellow-darker: rgb(214, 214, 57);
+$secondary-common-color-purple: rgb(134, 106, 188);
+$secondary-common-color-purple-darker: rgb(110, 78, 175);
+
+
 $white: rgb(255, 255, 255);
 $black: rgb(51, 51, 51);
+$blackish: rgba(51, 51, 51, 0.808);
+$light-gray: rgba(136, 136, 136, 0.226);
+$lighter-gray: rgba(136, 136, 136, 0.11);
 $red: red;

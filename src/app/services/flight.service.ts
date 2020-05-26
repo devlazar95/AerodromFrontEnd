@@ -15,5 +15,9 @@ export class FlightService {
     saveNewFlight(flighDataObject: IFlight){
         return this._apiService.post('api/flights/', flighDataObject);
     }
+
+    deleteFlight(flightID: string){
+      return this._apiService.delete('api/flight', flightID);
+    }
    
   }

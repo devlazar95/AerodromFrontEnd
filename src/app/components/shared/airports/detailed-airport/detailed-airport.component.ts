@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AirportsService } from 'src/app/services/airports.service';
 import { FlightService } from 'src/app/services/flight.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {NgbDateStruct, NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup, Validators, NgModel } from '@angular/forms';
+import {NgbDateStruct,  NgbModal, ModalDismissReasons, NgbDate, NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap';
 import { AircraftService } from 'src/app/services/aircraft.service';
 import { IFlight } from 'src/app/models/flight.model';
 import {Location} from '@angular/common';
+import { NgbTime } from '@ng-bootstrap/ng-bootstrap/timepicker/ngb-time';
 
 @Component({
   selector: 'app-detailed-airport',
@@ -15,26 +16,39 @@ import {Location} from '@angular/common';
 })
 export class DetailedAirportComponent implements OnInit {
 
-  id: string;
   airportID: number;
+  
   specificAirport: any = {};
+  
   allAircrafts: any = [];
   flights: any = [];
-  loader: boolean = false;
+  
   model: NgbDateStruct;
   model2: NgbDateStruct;
   time: NgbTimeStruct;
   time2: NgbTimeStruct;
+  
   newFlightDataObject: IFlight;
   newFlightRecord: FormGroup;
+  
+  id: string;
+  closeResult:string = '';
+  
   successAddingFlight: boolean = false;
+  successDeletingFlight: boolean = false;
+  loader: boolean = false;
   errorAddingFlight: boolean = false;
   formInvalid: boolean = false;
+  uniqueFlightNumber: boolean = false;
+  readbool: boolean = false;
+  flightToDelete: string;
+
   constructor(private route: ActivatedRoute,
     private readonly _airportsService: AirportsService,
     private readonly _flightService: FlightService,
     private readonly _aircraftService: AircraftService,
     private _fb: FormBuilder,
+    private modalService: NgbModal,
     private _location: Location) {
       this.newFlightRecord = this._fb.group({
         flightNumberFormControl: ['', Validators.required],
@@ -73,7 +87,7 @@ export class DetailedAirportComponent implements OnInit {
    this.flights = [];
     await this._flightService.getFlights().toPromise().then((res) => {
       res.forEach((item) => {
-        if (this.id == item.airport) {
+        if (this.id == item.airport.id) {
           this.flights.push(item);
         }
       });
@@ -89,7 +103,7 @@ export class DetailedAirportComponent implements OnInit {
       }, 250);
       setTimeout(()=>{
         this.successAddingFlight = false;
-      },2000)
+      },4500)
     }).catch((err)=>{
       console.log(err);
     })
@@ -97,6 +111,7 @@ export class DetailedAirportComponent implements OnInit {
 
   submitData(fg: FormGroup){
     if(fg.valid){
+      this.loader = true;
       this.formInvalid = false;
       var dateDep = fg.controls.departureDateFormControl.value['year'].toString()+'-'+fg.controls.departureDateFormControl.value['month'].toString()+'-'+fg.controls.departureDateFormControl.value['day'].toString();
       var timeDep = 'T'+fg.controls.departureTimeFormControl.value['hour']+':'+fg.controls.departureTimeFormControl.value['minute']+':'+fg.controls.departureTimeFormControl.value['second'];
@@ -114,8 +129,16 @@ export class DetailedAirportComponent implements OnInit {
       }
       this._flightService.saveNewFlight(this.newFlightDataObject).toPromise().then((res)=>{
         this.successAddingFlight = true;
+        this.uniqueFlightNumber = false;
+        this.loader = false;
+        fg.reset();
         this.getAllFlights();
       }).catch((err)=>{
+        if(err['error'].flightNumber == fg.controls.flightNumberFormControl.value){
+          this.uniqueFlightNumber = true;
+          this.loader = false;
+        }
+        
         this.errorAddingFlight = true;
         setTimeout(()=>{
           this.errorAddingFlight = false;
@@ -125,7 +148,72 @@ export class DetailedAirportComponent implements OnInit {
       this.formInvalid = true;
     }  
   }
+  
+  deleteFlightFirstStep(flightID, content){
+    this.flightToDelete = flightID;
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true, size: 'lg'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
 
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+  
+  async deleteFlight(){
+    await this._flightService.deleteFlight(this.flightToDelete).toPromise().then((res)=>{
+      this.successAddingFlight = false;
+      this.successDeletingFlight = true;
+      this.modalService.dismissAll();
+      this.getAllFlights();
+      setTimeout(() => {
+        this.loader = false;
+      }, 250);
+      setTimeout(()=>{
+        this.successDeletingFlight = false;
+      },4500)
+    }).catch((err)=>{
+      console.log(err);
+    })
+  }
+
+  ngbDate: any;
+  ngbTime: any;
+  editSpecificFlight(flight: IFlight){
+    this.readbool = true;
+    var departureDateTime = flight.departureDateTime.split("T");
+    var departureDate = departureDateTime[0];
+    var departureTime = departureDateTime[1];
+    const [year, month, day] = departureDate.split('-');
+    const [hour, minute, second] = departureTime.split(':');
+    const obj = { year: parseInt(year), month: parseInt(month), day: 
+      parseInt(day.split(' ')[0].trim()) };
+    
+    const objtime = {hour: parseInt(hour), minute: parseInt(minute), second: parseInt(second.substr(0, 3))}
+
+    this.ngbDate = new NgbDate(obj.year, obj.month, obj.day);
+    this.time = objtime;
+    this.newFlightRecord.patchValue({
+      flightNumberFormControl: flight.flightNumber,
+      departureDateFormControl: this.ngbDate,
+        departureTimeFormControl: this.time,
+        toWhereFormControl: flight.toWhere,
+        aircraftFormControl: flight.aircraft['id']
+    })
+  }
+
+  dismissDeletion(){
+    this.modalService.dismissAll();
+  }
+  
   goBack(){
     this._location.back();
   }

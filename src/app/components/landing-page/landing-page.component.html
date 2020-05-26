@@ -2,9 +2,7 @@
     <div class="plane-loader">
         <div class="cloud cloud1"></div>
         <div class="cloud cloud4"></div>
-        <div class="cloud cloud3"></div>
         <div class="plane"></div>
-        <div class="cloud cloud2"></div>
         <div class="steam steam1">
           <div class="c1"></div><div class="c2"></div><div class="c3"></div><div class="c4"></div><div class="c5"></div><div class="c6"></div><div class="c7"></div><div class="c8"></div><div class="c9"></div><div class="c10"></div>
         </div>
@@ -19,9 +17,9 @@
         </div>
       </div>
   <div class="container">
-    <h1 class="display-4 text-light font-weight-bold">Dobrodošli</h1>
-    <p class="lead text-light">AirAssist - platforma namenjena asistentima i konsultantima u planiranju letova</p>
-    <button type="button" class="btn btn-light btn-lg" [routerLink]="['/airports']">PLATFORMA</button>
-    <button type="button" class="btn btn-outline-light ml-3 btn-lg">KONTAKT</button>
+    <h1 class="display-4 text-light font-weight-bold">{{ "home.Welcome" | translate}}</h1>
+    <p class="lead text-light">{{ "home.headline" | translate }}</p>
+    <button type="button" class="btn btn-light btn-lg" [routerLink]="['/airports']">{{ "home.platform" | translate }}</button>
+    <button type="button" class="btn btn-outline-light ml-3 btn-lg">{{ "home.support" | translate }}</button>
   </div>
 </div>

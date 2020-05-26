@@ -7,6 +7,7 @@ import { AirportComponent } from './airports/airport/airport.component';
 import { DetailedAirportComponent } from './airports/detailed-airport/detailed-airport.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbDate, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FlightsComponent } from './flights/flights.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { NgbDate, NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ListAirportsComponent,
     AirportComponent,
     DetailedAirportComponent,
+    FlightsComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +29,8 @@ import { NgbDate, NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FooterComponent,
     ListAirportsComponent,
     AirportComponent,
-    DetailedAirportComponent
+    DetailedAirportComponent,
+    FlightsComponent
   ]
 })
 export class SharedModule { }

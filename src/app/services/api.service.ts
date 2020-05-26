@@ -16,6 +16,10 @@ export class ApiService {
     return this._httpClient.post(this.baseUrl+endPointURL,dataObject);
   }
 
+  delete(endPointURL:string, itemID:any): Observable<any>{
+    return this._httpClient.delete(this.baseUrl+endPointURL+"/"+itemID);
+  }
+
   getById(endPointURL:string, id:number): Observable<any>{
     return this._httpClient.get(this.baseUrl+endPointURL+"/"+id+"/");
   }

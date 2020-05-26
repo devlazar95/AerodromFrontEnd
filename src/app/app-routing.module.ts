@@ -4,16 +4,18 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
 import { ListAirportsComponent } from './components/shared/airports/list-airports/list-airports.component';
 import { AirportComponent } from './components/shared/airports/airport/airport.component';
 import { DetailedAirportComponent } from './components/shared/airports/detailed-airport/detailed-airport.component';
+import { FlightsComponent } from './components/shared/flights/flights.component';
 
 
 const routes: Routes = [
   {
     path: "",
-    children: [
-      {
-        path: "", component: LandingPageComponent
-      }
-    ]
+    redirectTo: "welcome",
+    pathMatch: 'full'
+      
+  },
+  {
+    path: "welcome", component: LandingPageComponent
   },
   {
     path: "airports",
@@ -22,6 +24,10 @@ const routes: Routes = [
   {
     path: "airport",
     component: DetailedAirportComponent
+  },
+  {
+    path: "flights",
+    component: FlightsComponent
   }
 ];
 

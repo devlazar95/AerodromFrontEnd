@@ -1,1 +1,3 @@
-    <router-outlet></router-outlet>
+<main-navigation *ngIf="router.url != '/welcome'"></main-navigation>
+<router-outlet></router-outlet>
+<main-footer *ngIf="router.url != '/welcome'"></main-footer>
