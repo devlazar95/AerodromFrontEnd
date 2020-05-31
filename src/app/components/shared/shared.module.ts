@@ -8,7 +8,7 @@ import { DetailedAirportComponent } from './airports/detailed-airport/detailed-a
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbDate, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FlightsComponent } from './flights/flights.component';
-
+import { NgxSpinnerModule } from "ngx-spinner";
 @NgModule({
   declarations: [
     NavigationComponent,
@@ -22,7 +22,8 @@ import { FlightsComponent } from './flights/flights.component';
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    NgxSpinnerModule
   ],
   exports: [
     NavigationComponent,

@@ -1,27 +1,26 @@
-<div class="alert alert-success col-10 mx-auto text-center text-uppercase custom-alert-bottom" role="alert"
-    *ngIf="successAddingFlight">
-    Uspešno ste kreirali let
-</div>
-<div class="alert alert-success col-10 mx-auto text-center text-uppercase custom-alert-bottom" role="alert"
-    *ngIf="successDeletingFlight">
-    Uspešno ste izbrisali let {{flightToDelete}} za {{specificAirport.name}}
-</div>
-<div class="alert alert-danger col-10 mx-auto text-center text-uppercase custom-alert-bottom" role="alert"
-    *ngIf="errorAddingFlight">
-    Let nije kreiran
-</div>
-<div class="alert alert-danger col-10 mx-auto text-center text-uppercase custom-alert-bottom" role="alert"
-    *ngIf="formInvalid">
-    Molimo Vas popunite sva obavezna polja
-</div>
 <main class="main-container mb-5">
-    <div *ngIf="loader" class="loader-class">
-        <div class="reverse-spinner"></div>
+    <div class="alert alert-success col-10 mx-auto text-center text-uppercase custom-alert-bottom" role="alert"
+        *ngIf="successAddingFlight">
+        Uspešno ste kreirali let
+    </div>
+    <div class="alert alert-success col-10 mx-auto text-center text-uppercase custom-alert-bottom" role="alert"
+        *ngIf="successDeletingFlight">
+        Uspešno ste izbrisali let {{flightToDelete}} za {{specificAirport.name}}
+    </div>
+    <div class="alert alert-danger col-10 mx-auto text-center text-uppercase custom-alert-bottom" role="alert"
+        *ngIf="errorAddingFlight">
+        Let nije kreiran
+    </div>
+    <div class="alert alert-danger col-10 mx-auto text-center text-uppercase custom-alert-bottom" role="alert"
+        *ngIf="formInvalid">
+        Molimo Vas popunite sva obavezna polja
     </div>
     <h4 class="text-secondary text-size pointer text-center mt-5 mb-3 col-10 mx-auto">SVI LETOVI NA AERODROMU <span
             class="text-uppercase">"{{specificAirport.name}}"</span></h4>
     <div class="col-8 mt-2 mx-auto">
-
+        <ngx-spinner [fullScreen]="false" bdColor="rgba(0, 177, 221, 0.2)" size="medium" color="#fff"
+            type="ball-clip-rotate-multiple">
+        </ngx-spinner>
         <div class="table-responsive" *ngIf="flights.length > 0">
             <table class="table table-striped">
                 <thead>
@@ -50,8 +49,8 @@
                         </td>
                         <td>{{ flight.toWhere }}</td>
                         <td>
-                            <i class="far fa-edit hover-edit" data-toggle="tooltip" data-placement="top"
-                                title="Edit" (click)="editSpecificFlight(flight)"></i>
+                            <i class="far fa-edit hover-edit" data-toggle="tooltip" data-placement="top" title="Edit"
+                                (click)="editSpecificFlight(flight)"></i>
                             <i class="far fa-trash-alt ml-3 hover-delete" data-toggle="tooltip" data-placement="top"
                                 title="Delete" (click)="deleteFlightFirstStep(flight.flightNumber, content)"></i>
                         </td>
@@ -93,12 +92,18 @@
                     <div class="card-body  bg-white">
                         <form [formGroup]="newFlightRecord" class="needs-validation" autocomplete="off">
                             <div class="form-group">
-                                <label for="flightNumberFormControl">Broj leta<span
-                                        class="asterix ml-2">*</span></label>
+                                <div class="d-flex flex-row justify-content-between">
+                                    <label for="flightNumberFormControl">Broj leta<span
+                                            class="asterix ml-2">*</span></label>
+                                    <i class="far fa-times-circle hover-cancel d-flex flex-row align-items-center"
+                                        data-toggle="tooltip" data-placement="top" title="Isprazni polja"
+                                        (click)="cancelEdit(flight)" *ngIf="modeEdit"></i>
+                                </div>
                                 <input type="text" class="form-control form-control-lg"
                                     [ngClass]="{'border-danger': formInvalid || uniqueFlightNumber}"
                                     id="flightNumberFormControl" formControlName="flightNumberFormControl"
-                                    aria-describedby="fnumberlHelp" placeholder="Broj leta" required [readonly]="readbool">
+                                    aria-describedby="fnumberlHelp" placeholder="Broj leta" required
+                                    [readonly]="readbool">
                                 <small id="unique" *ngIf="uniqueFlightNumber" class="form-text text-danger">Unesite
                                     jedinstveni nepostojeći broj leta</small>
                             </div>
@@ -113,7 +118,7 @@
                                             (click)="d.toggle()" formControlName="departureDateFormControl" name="dp"
                                             [(ngModel)]="ngbDate" ngbDatepicker #d="ngbDatepicker" required>
                                     </div>
-                                    <div class="col-3 align-self-end">
+                                    <div class="col-3 align-self-end pr-0">
                                         <ngb-timepicker [ngClass]="{'border-danger':true}"
                                             formControlName="departureTimeFormControl" [(ngModel)]="time"
                                             [spinners]="false" required></ngb-timepicker>
@@ -145,7 +150,7 @@
                                         formControlName="toWhereFormControl" aria-describedby="fnumberlHelp"
                                         placeholder="Destinacija" required>
                                 </div>
-                                <div class="form-group col-6 ml-3">
+                                <div class="form-group col-6 ml-3 pl-0">
                                     <label for="aircraftFormControl">Avion<span class="asterix ml-2">*</span></label>
                                     <select class="custom-select form-control form-control-lg"
                                         formControlName="aircraftFormControl" [ngClass]="{'border-danger':formInvalid}">
@@ -157,9 +162,11 @@
                             </div>
                             <div class="pt-4">
                                 <button type="submit" class="btn btn-primary btn-lg mr-2"
-                                    (click)="submitData(newFlightRecord)">Potvrdite</button>
-                                <button type="button" class="btn btn-outline-primary btn-lg"
-                                    (click)="goBack()">Otkažite</button>
+                                    (click)="submitData(newFlightRecord)" *ngIf="!modeEdit">Sačuvaj</button>
+                                <button type="submit" class="btn btn-primary btn-lg mr-2"
+                                    (click)="editFlightData(newFlightRecord)" *ngIf="modeEdit">Izmeni</button>
+                                <button type="button" class="btn btn-outline-danger btn-lg"
+                                    (click)="goBack()">Otkaži</button>
                             </div>
                         </form>
                     </div>
@@ -178,7 +185,8 @@
             Da li ste sigurni da želite da izbrišete LET <u>{{flightToDelete}}</u> za {{specificAirport.name}}
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-outline-danger" data-dismiss="modal" focus="true" (click)="dismissDeletion()">ODUSTANI</button>
+            <button type="button" class="btn btn-outline-danger" data-dismiss="modal" focus="true"
+                (click)="dismissDeletion()">ODUSTANI</button>
             <button type="button" class="btn btn-primary" (click)="deleteFlight()">OBRIŠI</button>
         </div>
     </ng-template>

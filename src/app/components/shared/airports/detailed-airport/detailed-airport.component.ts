@@ -8,7 +8,8 @@ import { AircraftService } from 'src/app/services/aircraft.service';
 import { IFlight } from 'src/app/models/flight.model';
 import {Location} from '@angular/common';
 import { NgbTime } from '@ng-bootstrap/ng-bootstrap/timepicker/ngb-time';
-
+import { NgxSpinnerService } from "ngx-spinner";
+import { parse } from 'querystring';
 @Component({
   selector: 'app-detailed-airport',
   templateUrl: './detailed-airport.component.html',
@@ -41,6 +42,7 @@ export class DetailedAirportComponent implements OnInit {
   formInvalid: boolean = false;
   uniqueFlightNumber: boolean = false;
   readbool: boolean = false;
+  modeEdit: boolean = false;
   flightToDelete: string;
 
   constructor(private route: ActivatedRoute,
@@ -49,6 +51,7 @@ export class DetailedAirportComponent implements OnInit {
     private readonly _aircraftService: AircraftService,
     private _fb: FormBuilder,
     private modalService: NgbModal,
+    private spinner: NgxSpinnerService,
     private _location: Location) {
       this.newFlightRecord = this._fb.group({
         flightNumberFormControl: ['', Validators.required],
@@ -63,6 +66,7 @@ export class DetailedAirportComponent implements OnInit {
 
   ngOnInit() {
     if (this.route.snapshot.queryParamMap.get('airportID')) {
+      this.onActivate(); 
       this.id = this.route.snapshot.queryParamMap.get('airportID');
       this.airportID = parseInt(this.id);
       this.init();
@@ -70,11 +74,23 @@ export class DetailedAirportComponent implements OnInit {
   }
 
   init() {
-    this.loader = true;
     this.getAirportWithID();
   }
 
+  onActivate() {
+    let scrollToTop = window.setInterval(() => {
+      let pos = window.pageYOffset;
+      if (pos > 0) {
+        window.scrollTo(0, pos - 20); // how far to scroll on each step
+      } else {
+        window.clearInterval(scrollToTop);
+      }
+    }, 16);
+  }
+
   async getAirportWithID(){
+    this.spinner.show();
+    this.loader = true;
     await this._airportsService.getAirportById(this.airportID).toPromise().then((res) => {
       this.specificAirport = res;
       this.getAllFlights();
@@ -99,6 +115,7 @@ export class DetailedAirportComponent implements OnInit {
     await this._aircraftService.getAllAircrafts().toPromise().then((res)=>{
       this.allAircrafts = res;
       setTimeout(() => {
+        this.spinner.hide();
         this.loader = false;
       }, 250);
       setTimeout(()=>{
@@ -112,6 +129,7 @@ export class DetailedAirportComponent implements OnInit {
   submitData(fg: FormGroup){
     if(fg.valid){
       this.loader = true;
+      this.spinner.show();
       this.formInvalid = false;
       var dateDep = fg.controls.departureDateFormControl.value['year'].toString()+'-'+fg.controls.departureDateFormControl.value['month'].toString()+'-'+fg.controls.departureDateFormControl.value['day'].toString();
       var timeDep = 'T'+fg.controls.departureTimeFormControl.value['hour']+':'+fg.controls.departureTimeFormControl.value['minute']+':'+fg.controls.departureTimeFormControl.value['second'];
@@ -130,7 +148,10 @@ export class DetailedAirportComponent implements OnInit {
       this._flightService.saveNewFlight(this.newFlightDataObject).toPromise().then((res)=>{
         this.successAddingFlight = true;
         this.uniqueFlightNumber = false;
-        this.loader = false;
+        setTimeout(()=>{
+          this.loader = false;
+          this.spinner.hide();
+        },300)
         fg.reset();
         this.getAllFlights();
       }).catch((err)=>{
@@ -186,14 +207,17 @@ export class DetailedAirportComponent implements OnInit {
   }
 
   ngbDate: any;
+  ngbDate2: any;
   ngbTime: any;
+
   editSpecificFlight(flight: IFlight){
+    this.modeEdit = true;
     this.readbool = true;
     var departureDateTime = flight.departureDateTime.split("T");
     var departureDate = departureDateTime[0];
     var departureTime = departureDateTime[1];
-    const [year, month, day] = departureDate.split('-');
-    const [hour, minute, second] = departureTime.split(':');
+    var [year, month, day] = departureDate.split('-');
+    var [hour, minute, second] = departureTime.split(':');
     const obj = { year: parseInt(year), month: parseInt(month), day: 
       parseInt(day.split(' ')[0].trim()) };
     
@@ -201,17 +225,51 @@ export class DetailedAirportComponent implements OnInit {
 
     this.ngbDate = new NgbDate(obj.year, obj.month, obj.day);
     this.time = objtime;
+
+    var arrivalDateTime = flight.arrivalDateTime.split('T');
+    var arrivalDate = arrivalDateTime[0];
+    var arrivalTime = arrivalDateTime[1];
+    [year, month, day] = arrivalDate.split('-');
+    [hour, minute, second] = arrivalTime.split(':');
+    const obj2 = { year: parseInt(year), month: parseInt(month), day: 
+      parseInt(day.split(' ')[0].trim()) }
+
+    const objtime2 = {hour: parseInt(hour), minute: parseInt(minute), second: parseInt(second.substr(0, 3))}
+    this.ngbDate2 = new NgbDate(obj2.year, obj2.month, obj2.day);
+    this.time2 = objtime2;
+
     this.newFlightRecord.patchValue({
       flightNumberFormControl: flight.flightNumber,
       departureDateFormControl: this.ngbDate,
-        departureTimeFormControl: this.time,
-        toWhereFormControl: flight.toWhere,
-        aircraftFormControl: flight.aircraft['id']
+      departureTimeFormControl: this.time,
+      arrivalDateFormControl: this.ngbDate2,
+      arrivalTimeFormControl: this.time2,
+      toWhereFormControl: flight.toWhere,
+      aircraftFormControl: flight.aircraft['id']
+    })
+  }
+
+  cancelEdit(flight: IFlight){
+    this.readbool = false;
+    this.modeEdit = false;
+
+    this.newFlightRecord.patchValue({
+      flightNumberFormControl: '',
+      departureDateFormControl: '',
+      departureTimeFormControl: '',
+      arrivalDateFormControl: '',
+      arrivalTimeFormControl: '',
+      toWhereFormControl: '',
+      aircraftFormControl: 0
     })
   }
 
   dismissDeletion(){
     this.modalService.dismissAll();
+  }
+
+  editFlightData(fg: FormGroup){
+    return;
   }
   
   goBack(){

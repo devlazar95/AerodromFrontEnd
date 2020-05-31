@@ -1,7 +1,15 @@
-<div *ngIf="loader" class="loader-class">
+<!-- <div *ngIf="loader" class="loader-class">
     <div class="reverse-spinner"></div>
-</div>
+</div> -->
 <main class="main-container">
+    <ngx-spinner
+        [fullScreen]="true"
+        bdColor="rgba(0, 177, 221, 0.2)"
+        size="medium"
+        color="#fff"
+        type="ball-clip-rotate-multiple"
+      >
+      </ngx-spinner>
     <!-- <div class="container-fluid">
         <div class="card border-primary mt-5 sp-ml-15 sp-mr-15" style="max-width: 100%;">
             <div class="card-header special-card-header text-light font-weight-bold text-uppercase">DNEVNI PREGLED</div>
@@ -43,11 +51,42 @@
                     <div class="card-body  bg-white">
                         <p class="card-text">Lokacija: <span class="text-secondary"> {{airport.location}}</span></p>
                         <p class="card-text">ICAO kod: <span class="text-secondary">{{airport.icaoCode}}</span> </p>
-                        <p class="card-text">Ocena:
-                            <span class="text-secondary" *ngFor="">
-                                {{airport.rating}}
-                            </span>
-                        </p>
+                        <div class="d-flex flex-row">
+                            <p class="card-text">
+                                Ocena:
+                            </p>
+                            <p class="text-secondary ml-2" *ngIf="airport.rating == 1">
+                                <i class="fas fa-star" style="color: gold"></i>
+                                <!-- {{airport.rating}} -->
+                            </p>
+                            <p class="text-secondary ml-2" *ngIf="airport.rating == 2">
+                                <i class="fas fa-star" style="color: gold"></i>
+                                <i class="fas fa-star" style="color: gold"></i>
+                                <!-- {{airport.rating}} -->
+                            </p>
+                            <p class="text-secondary ml-2" *ngIf="airport.rating == 3">
+                                <i class="fas fa-star" style="color: gold"></i>
+                                <i class="fas fa-star" style="color: gold"></i>
+                                <i class="fas fa-star" style="color: gold"></i>
+                                <!-- {{airport.rating}} -->
+                            </p>
+                            <p class="text-secondary ml-2" *ngIf="airport.rating == 4">
+                                <i class="fas fa-star" style="color: gold"></i>
+                                <i class="fas fa-star" style="color: gold"></i>
+                                <i class="fas fa-star" style="color: gold"></i>
+                                <i class="fas fa-star" style="color: gold"></i>
+                                <!-- {{airport.rating}} -->
+                            </p>
+                            <p class="text-secondary ml-2" *ngIf="airport.rating == 5">
+                                <i class="fas fa-star" style="color: gold"></i>
+                                <i class="fas fa-star" style="color: gold"></i>
+                                <i class="fas fa-star" style="color: gold"></i>
+                                <i class="fas fa-star" style="color: gold"></i>
+                                <i class="fas fa-star" style="color: gold"></i>
+                                <!-- {{airport.rating}} -->
+                            </p>
+
+                        </div>
                     </div>
                 </div>
             </div>

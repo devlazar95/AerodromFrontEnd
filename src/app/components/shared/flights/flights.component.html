@@ -1,7 +1,15 @@
 <main class="main-container">
-    <div *ngIf="loader" class="loader-class">
+    <!-- <div *ngIf="loader" class="loader-class">
         <div class="reverse-spinner"></div>
-    </div>
+    </div> -->
+    <ngx-spinner
+        [fullScreen]="false"
+        bdColor="rgba(0, 177, 221, 0.2)"
+        size="medium"
+        color="#fff"
+        type="ball-clip-rotate-multiple"
+      >
+      </ngx-spinner>
     <div class="container-fluid mt-5">
         <div class="table-responsive" *ngIf="allFlights.length > 0">
             <table class="table table-striped">
