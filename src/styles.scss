@@ -117,6 +117,10 @@ body,html {
   }  
 }
 
+.special-dropdown-menu{
+  left: -150px !important;
+}
+
 /* ALERTS */
 
 .custom-alert-bottom{
@@ -188,6 +192,14 @@ body,html {
   }
 }
 
+/* FONT AWESOME */
+
+#globe-link{
+  font-size: 1.2em !important;
+}
+
+/* FONT AWESOME END SECTION */
+
 /* SPECIAL MARGINS SECTION */
 .sp-ml-15 {
   margin-left: 15px;
@@ -238,6 +250,14 @@ body,html {
     left: 43%;
     color: $secondary-common-color-green !important; 
   }
+}
+
+.active-link{
+  color: $white !important;
+}
+
+.w-10{
+  width: 10% !important;
 }
 
 .circle3{

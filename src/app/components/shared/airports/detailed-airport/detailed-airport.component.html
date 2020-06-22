@@ -15,7 +15,7 @@
         *ngIf="formInvalid">
         Molimo Vas popunite sva obavezna polja
     </div>
-    <h4 class="text-secondary text-size pointer text-center mt-5 mb-3 col-10 mx-auto">SVI LETOVI NA AERODROMU <span
+    <h4 class="text-secondary text-size pointer text-center mt-5 mb-3 col-10 mx-auto text-uppercase">{{"airports.allFlightOn" | translate}} <span
             class="text-uppercase">"{{specificAirport.name}}"</span></h4>
     <div class="col-8 mt-2 mx-auto">
         <ngx-spinner [fullScreen]="false" bdColor="rgba(0, 177, 221, 0.2)" size="medium" color="#fff"
@@ -25,12 +25,12 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">Redni broj#</th>
-                        <th scope="col">Broj Leta</th>
-                        <th scope="col">Vreme Poletanja</th>
-                        <th scope="col">Vreme Sletanja</th>
-                        <th scope="col">Destinacija</th>
-                        <th scope="col">Opcije</th>
+                        <th scope="col">{{"airports.No" | translate}}#</th>
+                        <th scope="col">{{"airports.flightNumber" | translate}}</th>
+                        <th scope="col">{{"airports.departureTime" | translate}}</th>
+                        <th scope="col">{{"airports.arrivalTime" | translate}}</th>
+                        <th scope="col">{{"airports.destination" | translate}}</th>
+                        <th scope="col">{{"airports.options" | translate}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -86,32 +86,31 @@
             <div class="col-12 p-0">
                 <div class="card">
                     <div class="card-header bg-white text-header">
-                        <h4 class="text-light text-center text-uppercase">Dodajte novi let
+                        <h4 class="text-light text-center text-uppercase">{{"airports.addNewFlight" | translate}}
                         </h4>
                     </div>
                     <div class="card-body  bg-white">
                         <form [formGroup]="newFlightRecord" class="needs-validation" autocomplete="off">
                             <div class="form-group">
                                 <div class="d-flex flex-row justify-content-between">
-                                    <label for="flightNumberFormControl">Broj leta<span
+                                    <label for="flightNumberFormControl">{{"airports.flightNumber" | translate}}<span
                                             class="asterix ml-2">*</span></label>
                                     <i class="far fa-times-circle hover-cancel d-flex flex-row align-items-center"
                                         data-toggle="tooltip" data-placement="top" title="Isprazni polja"
-                                        (click)="cancelEdit(flight)" *ngIf="modeEdit"></i>
+                                        (click)="cancelEdit()" *ngIf="modeEdit"></i>
                                 </div>
                                 <input type="text" class="form-control form-control-lg"
                                     [ngClass]="{'border-danger': formInvalid || uniqueFlightNumber}"
                                     id="flightNumberFormControl" formControlName="flightNumberFormControl"
-                                    aria-describedby="fnumberlHelp" placeholder="Broj leta" required
+                                    aria-describedby="fnumberlHelp" placeholder='{{"airports.flightNumber" | translate}}' required
                                     [readonly]="readbool">
-                                <small id="unique" *ngIf="uniqueFlightNumber" class="form-text text-danger">Unesite
-                                    jedinstveni nepostojeći broj leta</small>
+                                <small id="unique" *ngIf="uniqueFlightNumber" class="form-text text-danger">{{"airports.uniqueFlightId" | translate}}</small>
                             </div>
                             <div class="d-flex flex-lg-row fx-md-column fx-sm-column flex-sm-column">
                                 <div
                                     class="form-group col-lg-6 col-md-12 col-sm-12 p-0 mr-3 d-flex flex-row  justify-content-center align-items-center">
                                     <div class="col-9 pl-0">
-                                        <label for="departureDateFormControl">Datum i vreme poletanja<span
+                                        <label for="departureDateFormControl">{{"airports.departureDateAndTime" | translate}}<span
                                                 class="asterix ml-2">*</span></label>
                                         <input class="form-control form-control-lg"
                                             [ngClass]="{'border-danger':formInvalid}" placeholder="yyyy-mm-dd"
@@ -127,7 +126,7 @@
                                 <div
                                     class="form-group p-0 col-lg-6 col-md-12 col-sm-12 d-flex flex-row justify-content-center align-items-center">
                                     <div class="col-9 pl-0">
-                                        <label for="arrivalDateFormControl">Datum i vreme sletanja<span
+                                        <label for="arrivalDateFormControl">{{"airports.arrivalDateAndTime" | translate}}<span
                                                 class="asterix ml-2">*</span></label>
                                         <input class="form-control form-control-lg"
                                             [ngClass]="{'border-danger':formInvalid}" placeholder="yyyy-mm-dd"
@@ -143,15 +142,15 @@
                             </div>
                             <div class="d-flex flex-row flex-sm-col">
                                 <div class="form-group col-6 p-0">
-                                    <label for="toWhereFormControl">Destinacija<span
+                                    <label for="toWhereFormControl">{{"airports.destination" | translate}}<span
                                             class="asterix ml-2">*</span></label>
                                     <input type="text" class="form-control form-control-lg"
                                         [ngClass]="{'border-danger':formInvalid}" id="toWhereFormControl"
                                         formControlName="toWhereFormControl" aria-describedby="fnumberlHelp"
-                                        placeholder="Destinacija" required>
+                                        placeholder='{{"airports.destination" | translate}}' required>
                                 </div>
                                 <div class="form-group col-6 ml-3 pl-0">
-                                    <label for="aircraftFormControl">Avion<span class="asterix ml-2">*</span></label>
+                                    <label for="aircraftFormControl">{{"airports.airplane" | translate}}<span class="asterix ml-2">*</span></label>
                                     <select class="custom-select form-control form-control-lg"
                                         formControlName="aircraftFormControl" [ngClass]="{'border-danger':formInvalid}">
                                         <option value="0" selected readonly>Izaberite avion</option>
@@ -162,11 +161,11 @@
                             </div>
                             <div class="pt-4">
                                 <button type="submit" class="btn btn-primary btn-lg mr-2"
-                                    (click)="submitData(newFlightRecord)" *ngIf="!modeEdit">Sačuvaj</button>
+                                    (click)="submitData(newFlightRecord)" *ngIf="!modeEdit">{{"buttons.save" | translate}}</button>
                                 <button type="submit" class="btn btn-primary btn-lg mr-2"
-                                    (click)="editFlightData(newFlightRecord)" *ngIf="modeEdit">Izmeni</button>
+                                    (click)="editFlightData(newFlightRecord)" *ngIf="modeEdit">{{"buttons.edit" | translate}}</button>
                                 <button type="button" class="btn btn-outline-danger btn-lg"
-                                    (click)="goBack()">Otkaži</button>
+                                    (click)="goBack()">{{"buttons.cancel" | translate}}</button>
                             </div>
                         </form>
                     </div>

@@ -5,6 +5,7 @@ import { ListAirportsComponent } from './components/shared/airports/list-airport
 import { AirportComponent } from './components/shared/airports/airport/airport.component';
 import { DetailedAirportComponent } from './components/shared/airports/detailed-airport/detailed-airport.component';
 import { FlightsComponent } from './components/shared/flights/flights.component';
+import { PassengersComponent } from './components/shared/passengers/passengers.component';
 
 
 const routes: Routes = [
@@ -28,6 +29,10 @@ const routes: Routes = [
   {
     path: "flights",
     component: FlightsComponent
+  },
+  {
+    path: "passengers",
+    component: PassengersComponent
   }
 ];
 

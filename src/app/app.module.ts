@@ -12,9 +12,23 @@ import { ApiService } from './services/api.service';
 import { AirportsService } from './services/airports.service';
 import { FlightService } from './services/flight.service';
 import { AircraftService } from './services/aircraft.service';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateModule, TranslateLoader, LangChangeEvent } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
+import { CustomTranslateService } from './services/custom-translate-service.service';
+import { CookieService } from 'ngx-cookie-service';
+// use this factory function to setRtl in localstorage.
+export function setIsRTL(customTranslateService: CustomTranslateService) {
+  return () => {
+    // if set before, just remove it
+    localStorage.removeItem("isRtl");
+    customTranslateService.translateService.onLangChange.subscribe(
+      (x: LangChangeEvent) => {
+        localStorage.removeItem("isRtl");
+        localStorage.removeItem("locale");
+      }
+    );
+  };
+}
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -39,7 +53,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       defaultLanguage: 'sr'
     })
   ],
-  providers: [ApiService, AirportsService, FlightService, AircraftService],
+  providers: [ApiService, AirportsService, FlightService, AircraftService, CustomTranslateService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

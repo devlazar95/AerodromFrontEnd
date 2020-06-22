@@ -7,18 +7,24 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item active">
-        <a class="nav-link" href="/airports">Početna</a>
+      <li class="nav-item">
+        <a class="nav-link" [routerLinkActiveOptions]="{ exact: true }" [routerLink]="['/airports']" [routerLinkActive]="['active-link']">{{"nav.firstPage" | translate}}</a>
       </li>
       <!-- <li class="nav-item">
           <a class="nav-link" href="#">Aerodromi</a>
         </li> -->
       <li class="nav-item">
-        <a class="nav-link" href="/flights">Letovi</a>
+        <a class="nav-link" [routerLinkActiveOptions]="{ exact: true }" [routerLink]="['/flights']" [routerLinkActive]="['active-link']">{{"nav.flightsPage" | translate}}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Putnici</a>
+        <a class="nav-link" [routerLinkActiveOptions]="{ exact: true }" [routerLink]="['/passengers']" [routerLinkActive]="['active-link']">{{"nav.passengersPage" | translate}}</a>
       </li>
     </ul>
+    <div class="dropdown show">
+      <i class="fas fa-globe" role="button" id="globe-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+      <div class="dropdown-menu special-dropdown-menu" aria-labelledby="globe-link" >
+        <a class="dropdown-item" (click)="changeLanguages(lang)" *ngFor="let lang of languages">{{lang.languageName}}</a>
+      </div>
+    </div>
   </div>
 </nav>

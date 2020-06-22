@@ -9,6 +9,14 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbDate, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FlightsComponent } from './flights/flights.component';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { AppRoutingModule } from 'src/app/app-routing.module';
+import { PassengersComponent } from './passengers/passengers.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 @NgModule({
   declarations: [
     NavigationComponent,
@@ -16,14 +24,24 @@ import { NgxSpinnerModule } from "ngx-spinner";
     ListAirportsComponent,
     AirportComponent,
     DetailedAirportComponent,
-    FlightsComponent
+    FlightsComponent,
+    PassengersComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    AppRoutingModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateModule,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      },
+      defaultLanguage: 'sr'
+    })
   ],
   exports: [
     NavigationComponent,
@@ -31,7 +49,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     ListAirportsComponent,
     AirportComponent,
     DetailedAirportComponent,
-    FlightsComponent
+    FlightsComponent,
+    PassengersComponent
   ]
 })
 export class SharedModule { }

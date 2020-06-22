@@ -49,11 +49,11 @@
                         </h5>
                     </div>
                     <div class="card-body  bg-white">
-                        <p class="card-text">Lokacija: <span class="text-secondary"> {{airport.location}}</span></p>
-                        <p class="card-text">ICAO kod: <span class="text-secondary">{{airport.icaoCode}}</span> </p>
+                        <p class="card-text">{{"airports.location" | translate}}: <span class="text-secondary"> {{airport.location}}</span></p>
+                        <p class="card-text">{{"airports.icao" | translate}}: <span class="text-secondary">{{airport.icaoCode}}</span> </p>
                         <div class="d-flex flex-row">
                             <p class="card-text">
-                                Ocena:
+                                {{"airports.rating" | translate}}:
                             </p>
                             <p class="text-secondary ml-2" *ngIf="airport.rating == 1">
                                 <i class="fas fa-star" style="color: gold"></i>

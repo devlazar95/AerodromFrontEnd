@@ -4,5 +4,32 @@
         "headline": "Platforma for managing airport bizz with ease",
         "platform": "Platform",
         "support": "Support"
+    },
+    "nav":{
+        "firstPage": "Airports",
+        "flightsPage": "Flights",
+        "passengersPage": "Passengers"
+    },
+    "airports":{
+        "location": "Location",
+        "icao": "ICAO",
+        "rating": "Rating",
+        "allFlightOn": "All flights on the",
+        "addNewFlight": "Add New Flight",
+        "No": "No",
+        "flightNumber": "Flight Number",
+        "departureTime": "Departure Time",
+        "arrivalTime": "Arrival Time",
+        "destination": "Destination",
+        "options": "Options",
+        "uniqueFlightId": "Enter unique not existing value for flight number",
+        "departureDateAndTime": "Departure date and time",
+        "arrivalDateAndTime": "Arrival date and time",
+        "airplane" : "Airplane"
+    },
+    "buttons":{
+        "save": "Save",
+        "cancel": "Cancel",
+        "edit": "Edit"
     }
 }

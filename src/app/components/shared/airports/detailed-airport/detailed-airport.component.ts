@@ -249,7 +249,7 @@ export class DetailedAirportComponent implements OnInit {
     })
   }
 
-  cancelEdit(flight: IFlight){
+  cancelEdit(){
     this.readbool = false;
     this.modeEdit = false;
 

@@ -4,5 +4,32 @@
         "headline": "AirAssist - platforma namenjena asistentima i konsultantima u planiranju letova",
         "platform": "Platforma",
         "support": "Podrška"
+    },
+    "nav":{
+        "firstPage": "Aerodromi",
+        "flightsPage": "Letovi",
+        "passengersPage": "Putnici"
+    },
+    "airports":{
+        "location": "Lokacija",
+        "icao": "ICAO kod",
+        "rating": "Ocena",
+        "allFlightOn": "Svi letovi na aerodromu",
+        "addNewFlight": "Dodajte novi let",
+        "No": "R. Broj",
+        "flightNumber": "Broj Leta",
+        "departureTime": "Vreme Poletanja",
+        "arrivalTime": "Vreme Sletanja",
+        "destination": "Destinacija",
+        "options": "Opcije",
+        "uniqueFlightId": "Unesite jedinstveni nepostojeći broj leta",
+        "departureDateAndTime": "Vreme i datum poletanja",
+        "arrivalDateAndTime": "Vreme i datum sletanja",
+        "airplane" : "Avion"
+    },
+    "buttons":{
+        "save": "Sačuvaj",
+        "cancel": "Otkaži",
+        "edit": "Izmeni"
     }
 }
