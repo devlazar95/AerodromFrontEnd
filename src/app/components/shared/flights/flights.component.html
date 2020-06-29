@@ -15,15 +15,15 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">R. Broj#</th>
-                        <th scope="col">Broj Leta</th>
-                        <th scope="col">Poletanje</th>
-                        <th scope="col">Sletanje</th>
-                        <th scope="col">Destinacija</th>
-                        <th scope="col">Aerodrom</th>
-                        <th scope="col">ICAO</th>
-                        <th scope="col">Letelica</th>
-                        <th scope="col">Opcije</th>
+                        <th scope="col">{{"airports.No" | translate}}#</th>
+                        <th scope="col">{{"airports.flightNumber" | translate}}</th>
+                        <th scope="col">{{"airports.departureDateAndTime" | translate}}</th>
+                        <th scope="col">{{"airports.arrivalDateAndTime" | translate}}</th>
+                        <th scope="col">{{"airports.destination" | translate}}</th>
+                        <th scope="col">{{"airports.airport" | translate}}</th>
+                        <th scope="col">{{"airports.icao" | translate}}</th>
+                        <th scope="col">{{"airports.airplane" | translate}}</th>
+                        <th scope="col">{{"airports.options" | translate}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,6 +48,7 @@
                         <td>
                             <i class="far fa-edit" data-toggle="tooltip" data-placement="top" title="Edit"></i>
                             <i class="far fa-trash-alt ml-3" data-toggle="tooltip" data-placement="top" title="Delete"></i>
+                            <i class="fas fa-user-friends ml-3" data-toggle="tooltip" data-placement="top" title="Add Passengers"></i>
                         </td>
                     </tr>
                 </tbody>

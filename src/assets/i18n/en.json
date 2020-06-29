@@ -11,6 +11,7 @@
         "passengersPage": "Passengers"
     },
     "airports":{
+        "airport": "Airport",
         "location": "Location",
         "icao": "ICAO",
         "rating": "Rating",
@@ -31,5 +32,17 @@
         "save": "Save",
         "cancel": "Cancel",
         "edit": "Edit"
+    },
+    "passengers": {
+        "addNewPassenger": "Add New Passenger",
+        "cardNumber": "Ticket Number",
+        "firstName": "First Name",
+        "lastName":"Last Name",
+        "seatNumber": "Seat",
+        "gateNumber": "Gate",
+        "fullName": "Full Name",
+        "boardingTime": "Boarding Time",
+        "serbianAirlines": "Serbian Airlines",
+        "serbian": "Serbian"
     }
 }

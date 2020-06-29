@@ -14,6 +14,7 @@ import { PassengersComponent } from './passengers/passengers.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -25,7 +26,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AirportComponent,
     DetailedAirportComponent,
     FlightsComponent,
-    PassengersComponent
+    PassengersComponent,
   ],
   imports: [
     CommonModule,
@@ -50,7 +51,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AirportComponent,
     DetailedAirportComponent,
     FlightsComponent,
-    PassengersComponent
+    PassengersComponent,
   ]
 })
 export class SharedModule { }

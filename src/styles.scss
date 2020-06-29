@@ -34,6 +34,10 @@ body,html {
     }
 }
 
+.color-common{
+  color: $common-color;
+}
+
 /* BUTTONS */
 .btn-primary{
   background-color: $common-color;
@@ -63,6 +67,14 @@ body,html {
   &:hover{
     color: $common-secondary;
   }
+}
+
+.hover-passengers{
+  color: rgba(51, 51, 51, 0.808);
+  &:hover{
+    color: $common-color-nav-action !important;
+  }
+
 }
 
 /* TABLE */
@@ -149,6 +161,14 @@ body,html {
   padding: 0 !important;
 }
 
+/* PASSENGERS */
+
+.add-passenger-div{
+  height: 50vh !important;
+}
+
+/* END PASSENGERS */
+
 /* LOADER */
 
 .reverse-spinner {
@@ -178,6 +198,10 @@ body,html {
 }
 
 .far{
+  cursor: pointer !important;
+}
+
+.fa{
   cursor: pointer !important;
 }
 

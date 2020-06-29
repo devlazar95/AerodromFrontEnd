@@ -16,6 +16,8 @@ import { TranslateModule, TranslateLoader, LangChangeEvent } from '@ngx-translat
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CustomTranslateService } from './services/custom-translate-service.service';
 import { CookieService } from 'ngx-cookie-service';
+import { TicketService } from './services/ticket.service';
+import { PassengerService } from './services/passenger.service';
 // use this factory function to setRtl in localstorage.
 export function setIsRTL(customTranslateService: CustomTranslateService) {
   return () => {
@@ -53,7 +55,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       defaultLanguage: 'sr'
     })
   ],
-  providers: [ApiService, AirportsService, FlightService, AircraftService, CustomTranslateService, CookieService],
+  providers: [ApiService, AirportsService, FlightService, AircraftService, CustomTranslateService, CookieService,TicketService,PassengerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

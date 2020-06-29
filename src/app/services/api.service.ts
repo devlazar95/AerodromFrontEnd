@@ -20,7 +20,11 @@ export class ApiService {
     return this._httpClient.delete(this.baseUrl+endPointURL+"/"+itemID);
   }
 
-  getById(endPointURL:string, id:number): Observable<any>{
+  getById(endPointURL:string, id:any): Observable<any>{
     return this._httpClient.get(this.baseUrl+endPointURL+"/"+id+"/");
+  }
+
+  flightById(endPointURL:string, id:any): Observable<any>{
+    return this._httpClient.get(this.baseUrl+endPointURL+"/"+id);
   }
 }

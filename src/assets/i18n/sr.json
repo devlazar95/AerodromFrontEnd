@@ -1,35 +1,48 @@
 {
     "home":{
-        "Welcome": "Dobro došli",
-        "headline": "AirAssist - platforma namenjena asistentima i konsultantima u planiranju letova",
-        "platform": "Platforma",
-        "support": "Podrška"
+        "Welcome": "Добро дошли",
+        "headline": "AirAssist - платформа намењена асистентима и консултантима у планирању летова",
+        "platform": "Платформа",
+        "support": "Подршка"
     },
     "nav":{
-        "firstPage": "Aerodromi",
-        "flightsPage": "Letovi",
-        "passengersPage": "Putnici"
+        "firstPage": "Аеродроми",
+        "flightsPage": "Летови",
+        "passengersPage": "Путници"
     },
     "airports":{
-        "location": "Lokacija",
-        "icao": "ICAO kod",
-        "rating": "Ocena",
-        "allFlightOn": "Svi letovi na aerodromu",
-        "addNewFlight": "Dodajte novi let",
-        "No": "R. Broj",
-        "flightNumber": "Broj Leta",
-        "departureTime": "Vreme Poletanja",
-        "arrivalTime": "Vreme Sletanja",
-        "destination": "Destinacija",
-        "options": "Opcije",
-        "uniqueFlightId": "Unesite jedinstveni nepostojeći broj leta",
-        "departureDateAndTime": "Vreme i datum poletanja",
-        "arrivalDateAndTime": "Vreme i datum sletanja",
-        "airplane" : "Avion"
+        "airport": "Аеродром",
+        "location": "Локација",
+        "icao": "ICAO код",
+        "rating": "Оцена",
+        "allFlightOn": "Сви летови на аеродрому",
+        "addNewFlight": "Додајте нови лет",
+        "No": "Р. Број",
+        "flightNumber": "Број Лета",
+        "departureTime": "Време Полетања",
+        "arrivalTime": "Време Слетања",
+        "destination": "Дестинација",
+        "options": "Опција",
+        "uniqueFlightId": "Унесите јединствени непостојећи број лета",
+        "departureDateAndTime": "Време и датум полетања",
+        "arrivalDateAndTime": "Време и датум слетања",
+        "airplane" : "Авион"
     },
     "buttons":{
-        "save": "Sačuvaj",
-        "cancel": "Otkaži",
-        "edit": "Izmeni"
+        "save": "Сачувај",
+        "cancel": "Откажи",
+        "edit": "Измени"
+    },
+    "passengers": {
+        "addNewPassenger": "Додајте новог путника",
+        "cardNumber": "Бр. карте",
+        "firstName": "Име",
+        "lastName":"Презиме",
+        "seatNumber": "Седиште",
+        "gateNumber": "Излаз",
+        "fullName": "Име и презиме",
+        "boardingTime": "Време укрцавања",
+        "serbianAirlines": "Српска Авиокомпанија",
+        "serbian": "Србија"
     }
 }

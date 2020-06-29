@@ -19,5 +19,8 @@ export class FlightService {
     deleteFlight(flightID: string){
       return this._apiService.delete('api/flight', flightID);
     }
-   
+
+    getFlightByID(flightID: string){
+      return this._apiService.flightById('api/flight', flightID);
+    }
   }

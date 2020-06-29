@@ -1,1 +1,275 @@
-<p>passengers works!</p>
+<div class="main-container">
+  <ngx-spinner
+        [fullScreen]="false"
+        bdColor="rgba(0, 177, 221, 0.2)"
+        size="medium"
+        color="#fff"
+        type="ball-clip-rotate-multiple"
+      >
+      </ngx-spinner>
+  <div class="alert alert-success col-10 mx-auto text-center text-uppercase custom-alert-bottom" role="alert"
+        *ngIf="successAddingPassenger">
+        Uspešno ste dodali putnika na let {{flightNumber}}
+    </div>
+    <div class="alert alert-success col-10 mx-auto text-center text-uppercase custom-alert-bottom" role="alert"
+        *ngIf="successDeletingPassenger">
+        Uspešno ste izbrisali putnika
+    </div>
+    <div class="alert alert-danger col-10 mx-auto text-center text-uppercase custom-alert-bottom" role="alert"
+        *ngIf="errorAddingPassenger">
+        Let nije kreiran
+    </div>
+  <div *ngIf="addPassengers" class="add-passenger-div">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          <div class="d-flex flex-column align-items-center mt-3 col-12 p-0">
+            <div class="col-12 p-0">
+              <div class="card">
+                <div class="card-header bg-white text-header">
+                  <h4 class="text-light text-center text-uppercase">{{"passengers.addNewPassenger" | translate}}
+                  </h4>
+                </div>
+                <div class="card-body  bg-white">
+                  <form [formGroup]="newPassengerRecord" class="needs-validation" autocomplete="off">
+                    <div class="d-flex flex-row flex-sm-col">
+                      <div class="form-group col-12 ml-3 pl-0">
+                        <label for="aircraftFormControl">{{"passengers.cardNumber" | translate}}<span class="asterix ml-2">*</span></label>
+                        <input type="text" class="form-control form-control-lg"
+                          [ngClass]="{'border-danger':formInvalid}" id="ticketNumber" formControlName="ticketNumber"
+                          aria-describedby="fnumberlHelp" placeholder='{{"passengers.cardNumber" | translate}}'  required>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-row flex-sm-col">
+                      <div class="form-group col-6">
+                        <div class="d-flex flex-row justify-content-between">
+                          <label for="flightNumberFormControl">{{"passengers.firstName" | translate}}<span class="asterix ml-2">*</span></label>
+                          <i class="far fa-times-circle hover-cancel d-flex flex-row align-items-center"
+                            data-toggle="tooltip" data-placement="top" title="Isprazni polja" (click)="cancelEdit()"
+                            *ngIf="modeEdit"></i>
+                        </div>
+                        <input type="text" class="form-control form-control-lg"
+                          [ngClass]="{'border-danger': formInvalid || uniqueFlightNumber}" id="flightNumberFormControl"
+                          formControlName="passengerName" aria-describedby="fnumberlHelp" placeholder='{{"passengers.firstName" | translate}}'
+                          required [readonly]="readbool">
+                        <small id="unique" *ngIf="uniqueFlightNumber"
+                          class="form-text text-danger">{{"airports.uniqueFlightId" | translate}}</small>
+                      </div>
+                      <div class="form-group col-6 p-0">
+                        <label for="toWhereFormControl">{{"passengers.lastName" | translate}}<span class="asterix ml-2">*</span></label>
+                        <input type="text" class="form-control form-control-lg"
+                          [ngClass]="{'border-danger':formInvalid}" id="passengerLastName"
+                          formControlName="passengerLastName" aria-describedby="fnumberlHelp" placeholder='{{"passengers.lastName" | translate}}'
+                          required>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-row flex-sm-col">
+                      <div class="form-group col-6">
+                        <div class="d-flex flex-row justify-content-between">
+                          <label for="flightNumberFormControl">{{"passengers.seatNumber" | translate}}<span class="asterix ml-2">*</span></label>
+                          <i class="far fa-times-circle hover-cancel d-flex flex-row align-items-center"
+                            data-toggle="tooltip" data-placement="top" title="Isprazni polja" (click)="cancelEdit()"
+                            *ngIf="modeEdit"></i>
+                        </div>
+                        <input type="text" class="form-control form-control-lg"
+                          [ngClass]="{'border-danger': formInvalid || uniqueFlightNumber}" id="seatNumber1"
+                          formControlName="seatNumber" aria-describedby="fnumberlHelp" placeholder='{{"passengers.seatNumber" | translate}}'
+                          required [readonly]="readbool">
+                        <small id="unique" *ngIf="uniqueFlightNumber"
+                          class="form-text text-danger">{{"airports.uniqueFlightId" | translate}}</small>
+                      </div>
+                      <div class="form-group col-6 p-0">
+                        <label for="toWhereFormControl">{{"passengers.gateNumber" | translate}}<span class="asterix ml-2">*</span></label>
+                        <input type="text" class="form-control form-control-lg"
+                          [ngClass]="{'border-danger':formInvalid}" id="gateNumber1"
+                          formControlName="gateNumber" aria-describedby="fnumberlHelp" placeholder='Gate Number'
+                          required>
+                      </div>
+                    </div>
+                    <div class="pt-4">
+                      <button type="submit" class="btn btn-primary btn-lg mr-2" (click)="submitData(newPassengerRecord)"
+                        *ngIf="!modeEdit">{{"buttons.save" | translate}}</button>
+                      <button type="submit" class="btn btn-primary btn-lg mr-2"
+                        (click)="editFlightData(newFlightRecord)"
+                        *ngIf="modeEdit">{{"buttons.edit" | translate}}</button>
+                      <button type="button" class="btn btn-outline-danger btn-lg"
+                        (click)="goBack()">{{"buttons.cancel" | translate}}</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="box">
+              <ul class="left">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+
+              <ul class="right">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+              <div class="ticket">
+                <span class="airline">{{"passengers.serbianAirlines" | translate}}</span>
+                <span class="airline airlineslip">Air Assist</span>
+                <span class="boarding">{{specificAirport.icaoCode}}</span>
+                <div class="content">
+                  <span class="jfk color-common mr-5">{{specificAirport.name}}</span>
+                  <!-- <span class="sfo pl-5"><i class="fas fa-plane-departure ml-5 color-common" style="font-size: .8em;"></i></span> -->
+                  <span class="jfk jfkslip color-common"> {{ticketNumber}} </span>
+                  <span class="sfo sfoslip"></span>
+                  <div class="sub-content" [formGroup]="ticketFormGroup">
+                    <span class="watermark" >{{"passengers.serbian" | translate}} </span>
+                    <span class="name">
+                      <label class="mb-0">{{"passengers.fullName" | translate}}:</label>
+                      <input type="text" class="form-control form-control-sm transparent-inputs pl-0" id="name" formControlName="name" readonly>
+                    </span>
+                    <span class="flight" >
+                      <label class="mb-0">{{"airports.flightNumber" | translate}}:</label>
+                      <input type="text" class="form-control form-control-sm transparent-inputs pl-0" id="flightNumber" formControlName="flightNumber"  readonly>
+                    </span>
+                    <span class="gate">
+                      <label class="mb-0">{{"passengers.gateNumber" | translate}}:</label>
+                      <input type="text" class="form-control form-control-sm transparent-inputs pl-0" id="gateNumber" formControlName="gateNumber"  readonly>
+                    </span>
+                    <span class="seat">
+                      <label class="mb-0">{{"passengers.seatNumber" | translate}}:</label>
+                      <input type="text" class="form-control form-control-sm transparent-inputs pl-0" id="seatNumber" formControlName="seatNumber"  readonly>
+                    </span>
+                    <span class="boardingtime">
+                      <label class="mb-0">{{"passengers.boardingTime" | translate}}: </label>
+                      <input type="text" class="form-control form-control-sm transparent-inputs pl-0" id="boardinTime" formControlName="boardinTime"  readonly>
+                    </span>
+
+                    <span class="flight flightslip">
+                      <label class="mb-0">{{"airports.flightNumber" | translate}}:</label>
+                      <input type="text" class="form-control form-control-sm transparent-inputs pl-0" id="flightNumberSlipo" formControlName="flightNumberSlipo"  readonly>
+                    </span>
+                    <span class="seat seatslip">
+                      <label class="mb-0">{{"passengers.seatNumber" | translate}}:</label>
+                      <input type="text" class="form-control form-control-sm transparent-inputs pl-0" id="seatNumberSlip" formControlName="seatNumberSlip"  readonly>
+                    </span>
+                    <span class="name nameslip">
+                      <label class="mb-0">{{"passengers.fullName" | translate}}:</label>
+                      <input type="text" class="form-control form-control-sm transparent-inputs pl-0 pt-0" id="nameSlip" formControlName="nameSlip"  readonly>
+                    </span>
+                  </div>
+                </div>
+                <div class="barcode"></div>
+                <div class="barcode slip"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th scope="col">{{"airports.No" | translate}}#</th>
+                    <th scope="col">{{"airports.flightNumber" | translate}}</th>
+                    <th scope="col">{{"passengers.cardNumber" | translate}}</th>
+                    <th scope="col">{{"passengers.fullName" | translate}}</th>
+                    <th scope="col">{{"passengers.seatNumber" | translate}}</th>
+                    <th scope="col">{{"passengers.gateNumber" | translate}}</th>
+                    <th scope="col">{{"airports.options" | translate}}</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ticket of allTickets; index as i">
+                    <th scope="row">{{ i + 1 }}</th>
+                    <td>
+                      {{flightNumber}}
+                    </td>
+                    <td>
+                      {{ticket.number}}
+                    </td>
+                    <td>
+                      {{ticket.passenger.name}}
+                    </td>
+                    <td>
+                      {{ticket.seatNum}}
+                    </td>
+                    <td>
+                      {{ticket.gateNum}}
+                    </td>
+                    <td>
+                        <i class="far fa-edit" data-toggle="tooltip" data-placement="top" title="Edit"></i>
+                        <i class="far fa-trash-alt ml-3" data-toggle="tooltip" data-placement="top" title="Delete"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="container-fluid mt-5" *ngIf="!addPassengers">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                      <th scope="col">{{"airports.No" | translate}}#</th>
+                      <th scope="col">{{"airports.flightNumber" | translate}}</th>
+                      <th scope="col">{{"passengers.cardNumber" | translate}}</th>
+                      <th scope="col">{{"passengers.fullName" | translate}}</th>
+                      <th scope="col">{{"passengers.seatNumber" | translate}}</th>
+                      <th scope="col">{{"passengers.gateNumber" | translate}}</th>
+                      <th scope="col">{{"airports.options" | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let ticket of allTickets; index as i">
+                        <th scope="row">{{ i + 1 }}</th>
+                        <td>
+                          {{flightNumber}}
+
+                        </td>
+                        <td>
+                            {{ticket.number}}
+                        </td>
+                        <td>
+                            {{ticket.passenger.name}}
+                        </td>
+                        <td>                     
+                           {{ticket.seatNum}}
+                        </td>
+                        <td>                      
+                          {{ticket.gateNum}}
+                        </td>
+                        <td>
+                            <i class="far fa-edit" data-toggle="tooltip" data-placement="top" title="Edit"></i>
+                            <i class="far fa-trash-alt ml-3" data-toggle="tooltip" data-placement="top" title="Delete"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

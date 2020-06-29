@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AirportsService } from 'src/app/services/airports.service';
 import { FlightService } from 'src/app/services/flight.service';
 import { FormBuilder, FormGroup, Validators, NgModel } from '@angular/forms';
@@ -49,6 +49,7 @@ export class DetailedAirportComponent implements OnInit {
     private readonly _airportsService: AirportsService,
     private readonly _flightService: FlightService,
     private readonly _aircraftService: AircraftService,
+    private _router: Router,
     private _fb: FormBuilder,
     private modalService: NgbModal,
     private spinner: NgxSpinnerService,
@@ -274,6 +275,12 @@ export class DetailedAirportComponent implements OnInit {
   
   goBack(){
     this._location.back();
+  }
+
+  addPassengers(flightNumber: string){
+    this._router.navigate(["passengers/"], {
+      queryParams: { flightID: flightNumber, airportID: this.airportID, addPassengers: true}
+    });
   }
 
 }
