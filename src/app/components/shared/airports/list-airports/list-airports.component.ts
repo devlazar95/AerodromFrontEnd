@@ -41,7 +41,6 @@ export class ListAirportsComponent implements OnInit {
         this.loader = false;
       },250);
     });
-    console.dir(this.allAirports);
   }
 
   goToAirport(id){

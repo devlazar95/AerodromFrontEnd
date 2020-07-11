@@ -1,47 +1,16 @@
-<!-- <div *ngIf="loader" class="loader-class">
-    <div class="reverse-spinner"></div>
-</div> -->
 <main class="main-container">
-    <ngx-spinner
-        [fullScreen]="true"
-        bdColor="rgba(0, 177, 221, 0.2)"
-        size="medium"
-        color="#fff"
-        type="ball-clip-rotate-multiple"
-      >
-      </ngx-spinner>
-    <!-- <div class="container-fluid">
-        <div class="card border-primary mt-5 sp-ml-15 sp-mr-15" style="max-width: 100%;">
-            <div class="card-header special-card-header text-light font-weight-bold text-uppercase">DNEVNI PREGLED</div>
-            <div class="card-body text-primary d-flex flex-row special-card-body">
-                <div class="col-4 border-right border-primary p-3 d-flex flex-column">
-                    <h5 class="font-weight-light text-uppercase text-center custom-green-light">BROJ LETOVA</h5>
-                    <div class="circle circle1 d-flex flex-column">
-                        <i class="fas fa-plane"></i>
-                        <span>0</span>
-                    </div>
-                </div>
-                <div class="col-4 border-right border-primary p-3">
-                    <h5 class="font-weight-light text-uppercase text-center custom-blue-light">KUPLJENO KARATA</h5>
-                    <div class="circle circle3 d-flex flex-column">
-                        <i class="fas fa-ticket-alt"></i>
-                        <span>0</span>
-                    </div>
-                </div>
-                <div class="col-4 p-3">
-                    <h5 class="font-weight-light text-uppercase text-center custom-purple">BROJ PUTNIKA</h5>
-                    <div class="circle circle4 d-flex flex-column">
-                        <i class="fas fa-user-alt"></i>
-                        <span>0</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
     <div class="card-group mt-5">
         <div class="card-deck card-columns col-auto mb-5" style="width: 25em" *ngFor="let airport of allAirports">
             <div class="container-fluid">
                 <div class="card special-card" (click)="goToAirport(airport.id)">
+                    <ngx-spinner
+                        [fullScreen]="false"
+                        bdColor="rgba(0, 177, 221, 0.2)"
+                        size="medium"
+                        color="#fff"
+                        type="ball-clip-rotate-multiple"
+                    >
+                    </ngx-spinner>
                     <img class="card-img-top" src="../../../../assets/images/airports/img-{{airport.id}}.png"
                         width="50%" alt="Card image cap">
                     <div class="card-header bg-white text-header">

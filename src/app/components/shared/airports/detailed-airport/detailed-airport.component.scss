@@ -7,6 +7,11 @@
     // box-shadow: -1px 11px 20px #76767659;
 }
 
+.close{
+    text-shadow: none !important;
+    outline-style: none !important;
+}
+
 .card-header{
     min-height: 65px !important;
     display: flex;

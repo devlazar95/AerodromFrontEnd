@@ -17,13 +17,21 @@
         <a class="nav-link" [routerLinkActiveOptions]="{ exact: true }" [routerLink]="['/flights']" [routerLinkActive]="['active-link']">{{"nav.flightsPage" | translate}}</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" [routerLinkActiveOptions]="{ exact: true }" [routerLink]="['/tickets']" [routerLinkActive]="['active-link']">{{"nav.ticketsPage" | translate}}</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" [routerLinkActiveOptions]="{ exact: true }" [routerLink]="['/passengers']" [routerLinkActive]="['active-link']">{{"nav.passengersPage" | translate}}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLinkActiveOptions]="{ exact: true }" [routerLink]="['/airplanes']" [routerLinkActive]="['active-link']">{{"nav.airplanes" | translate}}</a>
       </li>
     </ul>
     <div class="dropdown show">
       <i class="fas fa-globe" role="button" id="globe-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+      <label class='text-light ml-2' *ngIf="defaultLang == 'Srpski'">СРП</label>
+      <label class='text-light ml-2' *ngIf="defaultLang == 'Engleski'">EN</label>
       <div class="dropdown-menu special-dropdown-menu" aria-labelledby="globe-link" >
-        <a class="dropdown-item" (click)="changeLanguages(lang)" *ngFor="let lang of languages">{{lang.languageName}}</a>
+            <a class="dropdown-item" (click)="changeLanguages(lang)" *ngFor="let lang of languages">{{lang.languageName}}</a>
       </div>
     </div>
   </div>

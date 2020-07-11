@@ -14,6 +14,10 @@ import { PassengersComponent } from './passengers/passengers.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ModifyPassengerComponent } from './modify-passenger/modify-passenger.component';
+import { ListPassengersComponent } from './list-passengers/list-passengers.component';
+import { ListPeopleComponent } from './list-people/list-people.component';
+import { ListAirplanesComponent } from './airplanes/list-airplanes/list-airplanes.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -27,6 +31,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     DetailedAirportComponent,
     FlightsComponent,
     PassengersComponent,
+    ModifyPassengerComponent,
+    ListPassengersComponent,
+    ListPeopleComponent,
+    ListAirplanesComponent,
   ],
   imports: [
     CommonModule,

@@ -8,7 +8,9 @@
     "nav":{
         "firstPage": "Airports",
         "flightsPage": "Flights",
-        "passengersPage": "Passengers"
+        "ticketsPage": "Tickets",
+        "passengersPage": "Passengers",
+        "airplanes": "Airplanes"
     },
     "airports":{
         "airport": "Airport",
@@ -27,6 +29,10 @@
         "departureDateAndTime": "Departure date and time",
         "arrivalDateAndTime": "Arrival date and time",
         "airplane" : "Airplane"
+    },
+    "airplane": {
+        "seats": "No. of seats",
+        "type": "Type"
     },
     "buttons":{
         "save": "Save",

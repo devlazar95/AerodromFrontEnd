@@ -8,7 +8,9 @@
     "nav":{
         "firstPage": "Аеродроми",
         "flightsPage": "Летови",
-        "passengersPage": "Путници"
+        "ticketsPage": "Карте",
+        "passengersPage": "Путници",
+        "airplanes": "Авиони"
     },
     "airports":{
         "airport": "Аеродром",
@@ -27,6 +29,10 @@
         "departureDateAndTime": "Време и датум полетања",
         "arrivalDateAndTime": "Време и датум слетања",
         "airplane" : "Авион"
+    },
+    "airplane": {
+        "seats": "Укупан број седишта",
+        "type": "Тип"
     },
     "buttons":{
         "save": "Сачувај",

@@ -6,6 +6,10 @@ import { AirportComponent } from './components/shared/airports/airport/airport.c
 import { DetailedAirportComponent } from './components/shared/airports/detailed-airport/detailed-airport.component';
 import { FlightsComponent } from './components/shared/flights/flights.component';
 import { PassengersComponent } from './components/shared/passengers/passengers.component';
+import { ListPassengersComponent } from './components/shared/list-passengers/list-passengers.component';
+import { ModifyPassengerComponent } from './components/shared/modify-passenger/modify-passenger.component';
+import { ListPeopleComponent } from './components/shared/list-people/list-people.component';
+import { ListAirplanesComponent } from './components/shared/airplanes/list-airplanes/list-airplanes.component';
 
 
 const routes: Routes = [
@@ -31,8 +35,20 @@ const routes: Routes = [
     component: FlightsComponent
   },
   {
+    path: "tickets",
+    component: ListPassengersComponent
+  },
+  {
+    path: "modify-passengers",
+    component: ModifyPassengerComponent
+  },
+  {
     path: "passengers",
-    component: PassengersComponent
+    component: ListPeopleComponent
+  },
+  {
+    path: "airplanes",
+    component: ListAirplanesComponent
   }
 ];
 

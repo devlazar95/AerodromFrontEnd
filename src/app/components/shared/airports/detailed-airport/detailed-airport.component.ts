@@ -278,9 +278,13 @@ export class DetailedAirportComponent implements OnInit {
   }
 
   addPassengers(flightNumber: string){
-    this._router.navigate(["passengers/"], {
+    this._router.navigate(["modify-passengers/"], {
       queryParams: { flightID: flightNumber, airportID: this.airportID, addPassengers: true}
     });
+  }
+
+  focus(){
+    document.getElementById("focus-me").focus();
   }
 
 }

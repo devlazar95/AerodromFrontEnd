@@ -1,0 +1,28 @@
+<main class="main-container">
+    <div class="card-group mt-5">
+        <div class="card-deck card-columns col-auto mb-5" style="width: 25em" *ngFor="let airplane of allAirplanes">
+            <div class="container-fluid">
+                <div class="card special-card">
+                    <ngx-spinner
+                        [fullScreen]="false"
+                        bdColor="rgba(0, 177, 221, 0.2)"
+                        size="medium"
+                        color="#fff"
+                        type="ball-clip-rotate-multiple"
+                    >
+                    </ngx-spinner>
+                    <img class="card-img-top" src="../../../../assets/images/airplanes/img-{{airplane.id}}.jpg"
+                        width="50%" alt="Card image cap">
+                    <div class="card-header bg-white text-header">
+                        <h5 class="card-title text-light text-center book-title text-uppercase">{{airplane.name}}
+                        </h5>
+                    </div>
+                    <div class="card-body  bg-white">
+                        <p class="card-text">{{"airplane.seats" | translate}}: <span class="text-secondary"> {{airplane.seats}}</span></p>
+                        <p class="card-text">{{"airplane.type" | translate}}: <span class="text-secondary">{{airplane.type['type']}}</span> </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

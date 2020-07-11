@@ -19,11 +19,9 @@ export class NavigationComponent implements OnInit {
     private customTranslateService: CustomTranslateService,
     private cookieService: CookieService,
   ) {
-    console.log("Construct");
   }
 
   ngOnInit() {
-    console.log("Initial");
     this.defaultLangShort = this.cookieService.get(
       environment.languageCookieName
     );
@@ -51,6 +49,7 @@ export class NavigationComponent implements OnInit {
 
   changeLanguages(lang: any) {
     this.defaultLang = lang.languageName;
+    console.log(this.defaultLang);
     switch (lang.languageValue) {
       case "sr":
         this.customTranslateService.changeLanguage("sr");

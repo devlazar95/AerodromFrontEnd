@@ -1,0 +1,10 @@
+.special-card{
+    min-height: 592px;
+    cursor: pointer;
+    &:hover{
+        -webkit-box-shadow: 0 10px 20px 0px #e0e0e0;
+       -moz-box-shadow: 0 10px 20px 0px #e0e0e0;
+            box-shadow: 0 10px 20px 0px #e0e0e0;
+        transition: .3s;
+    }
+}

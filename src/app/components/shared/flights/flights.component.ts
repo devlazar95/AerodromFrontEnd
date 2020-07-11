@@ -23,7 +23,6 @@ export class FlightsComponent implements OnInit {
   async init(){
     await this._flightService.getFlights().toPromise().then((res)=>{
       this.allFlights = res;
-      console.log(this.allFlights); 
       setTimeout(()=>{
         this.spinner.hide();
         this.loader = false;

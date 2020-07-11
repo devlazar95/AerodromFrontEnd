@@ -13,11 +13,15 @@ export class PassengerService {
       return this._apiService.get('api/tickets');
     }
 
+    getPassengers(){
+      return this._apiService.get('api/passengers');
+    }
+
     saveNewPassenger(passengerDataObject: IPassenger){
         return this._apiService.post('api/passengers/', passengerDataObject);
     }
 
-    deleteTicket(passengertID: string){
+    deletePassenger(passengertID: any){
       return this._apiService.delete('api/passengers', passengertID);
     }
    

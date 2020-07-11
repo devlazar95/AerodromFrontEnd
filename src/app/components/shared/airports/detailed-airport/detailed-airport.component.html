@@ -41,11 +41,11 @@
                         </td>
                         <td>
                             <i class="fas fa-plane-departure mr-2"></i>
-                            {{ flight.departureDateTime | date }}
+                            {{ flight.departureDateTime }}
                         </td>
                         <td>
                             <i class="fas fa-plane-arrival mr-2"></i>
-                            {{ flight.arrivalDateTime | date }}
+                            {{ flight.arrivalDateTime }}
                         </td>
                         <td>{{ flight.toWhere }}</td>
                         <td>
@@ -62,28 +62,7 @@
         </div>
         <p *ngIf="flights.length == 0" class="text-center">NEMA REZULTATA</p>
     </div>
-
     <div class="d-flex flex-row align-items-center col-8  mx-auto ">
-        <!-- <div class="d-flex flex-column justify-content-center align-items-center col-5 mb-5em">
-            <div class="col-10">
-                <img src="../../../../../assets/images/airports/img-{{id}}.png" width="100%" alt="Card image cap">
-            </div>
-            <div class="d-flex flex-column col-10 w-100">
-                <div class="card">
-                    <div class="card-header bg-white text-header">
-                        <h4 class="text-light text-center book-title text-uppercase">{{specificAirport.name}}
-                        </h4>
-                    </div>
-                    <div class="card-body  bg-white">
-                        <p class="card-text">Lokacija: <span class="text-secondary"> {{specificAirport.location}}</span>
-                        </p>
-                        <p class="card-text">ICAO kod: <span class="text-secondary">{{specificAirport.icaoCode}}</span>
-                        </p>
-                        <p class="card-text">Ocena: <span class="text-secondary"> {{specificAirport.rating}}</span></p>
-                    </div>
-                </div>
-            </div>
-        </div> -->
         <div class="d-flex flex-column align-items-center mt-3 col-12 p-0">
             <div class="col-12 p-0">
                 <div class="card">
@@ -193,8 +172,8 @@
             Da li ste sigurni da želite da izbrišete LET <u>{{flightToDelete}}</u> za {{specificAirport.name}}
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-outline-danger" data-dismiss="modal" focus="true"
-                (click)="dismissDeletion()">ODUSTANI</button>
+            <button type="button" class="btn btn-outline-danger" id="focus-me" data-dismiss="modal" focus="true"
+                (click)="dismissDeletion()" (click)="focus()">ODUSTANI</button>
             <button type="button" class="btn btn-primary" (click)="deleteFlight()">OBRIŠI</button>
         </div>
     </ng-template>
